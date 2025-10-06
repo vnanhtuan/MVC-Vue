@@ -1,0 +1,22 @@
+﻿@using MVC_Vue.Controllers
+@model IEnumerable<Image>
+
+<v-container id="home-carousel">
+    <v-carousel height="600" show-arrows="hover" cycle interval="4000" hide-delimiter-background>
+        @foreach (var img in Model)
+        {
+            <v-carousel-item src="@img.Url" cover>
+                <template #default>
+                    <v-row class="fill-height" align="center" justify="center">
+                        <h2 class="display-1 white--text text-shadow">@img.Name</h2>
+                    </v-row>
+                </template>
+            </v-carousel-item>
+        }
+    </v-carousel>
+</v-container>
+
+<!--Cách dùng template, cần đăng khi trước khi mount #app-->
+@* <home-carousel :images='@Html.Raw(json)'>
+
+</home-carousel> *@ 

@@ -1,0 +1,112 @@
+﻿@using MVC_Vue.Controllers
+@model HomeDto
+﻿@{
+    ViewData["Title"] = "Kham pha san pham moi";
+}
+
+<v-container class="py-16 text-center">
+    <!--Cách render từ Razor: render dựa vào vue. Biến 'clients' được khai báo từ js-->
+    @await Html.PartialAsync("_HeroSection")
+    @await Html.PartialAsync("_Choose")
+    <!--Cách render từ Razor: render data sẵn. tốt cho SEO-->
+    @await Html.PartialAsync("_Carousel", Model.Images)
+    @await Html.PartialAsync("_Modern")
+</v-container>
+
+<!-- FEATURE CATEGORIES -->
+@* <v-container id="home-categories">
+    <v-row dense>
+        @foreach (var item in Model.Products)
+        {
+            <v-col cols="12" sm="4" key="@item.Id">
+                <v-card class="my-2" href="/Product?id=@item.Id">
+                    <v-card-title class="text-h6">@item.Name</v-card-title>
+                </v-card>
+            </v-col>
+        }
+    </v-row>
+</v-container> *@
+
+@section Scripts {
+    <script>
+        const app = mount('#app',
+             {
+                setup() {
+                    const tab=Vue.ref(1);
+                    const clients = [
+                        { title: "Nordic Chair", avatar: "product-1.png", price: "$50.00" },
+                        { title: "Kruzo Aero Chair", avatar: "product-2.png", price: "$78.00" },
+                        { title: "Ergonomic Chair", avatar: "product-3.png", price: "$43.00" },
+                    ];
+                    const chooses = [
+                        {
+                            title: "Fast & Free Shipping",
+                            icon: "fas fa-shipping-fast",
+                            desciption:
+                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
+                        },
+                        {
+                            title: "Easy to Shop",
+                            icon: "fas fa-shopping-bag",
+                            desciption:
+                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
+                        },
+                        {
+                            title: "24/7 Support",
+                            icon: "far fa-life-ring",
+                            desciption:
+                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
+                        },
+                        {
+                            title: "Hassle Free Returns",
+                            icon: "fas fa-sync-alt",
+                            desciption:
+                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
+                        },
+                    ];
+                    const moders = [
+                        {
+                            title: "Nordic Chair",
+                            avatar: "product-1.png",
+                            obs: "Donec facilisis quam ut purus rutrum",
+                            obs1: "lobortis. Donec vitae ",
+                        },
+                        {
+                            title: "Kruzo Aero Chair",
+                            avatar: "product-2.png",
+                            obs: "Donec facilisis quam ut purus rutrum",
+                            obs1: "lobortis. Donec vitae ",
+                        },
+                        {
+                            title: "Ergonomic Chair",
+                            avatar: "product-3.png",
+                            obs: "Donec facilisis quam ut purus rutrum",
+                            obs1: "lobortis. Donec vitae ",
+                        },
+                    ];
+                    const icons = [
+                      "fab fa-facebook",
+                      "fab fa-twitter",
+                      "fab fa-linkedin",
+                      "fab fa-instagram-square",
+                    ];
+
+                    return{tab, clients, chooses, moders, icons};
+                },
+                mounted() {
+                  console.log("mounted 1");
+                },
+                methods: {
+                  explore(){
+                    console.log("explore function");
+                  }
+                }
+             },
+             //{ 'home-carousel': HomeCarousel }   // đăng ký sớm
+
+        );
+
+
+    </script>
+}
+
