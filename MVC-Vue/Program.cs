@@ -9,9 +9,9 @@ builder.Services.AddControllersWithViews()
         o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
-builder.Services.AddMvc().AddRazorOptions(opt => {
-    opt.ViewLocationFormats.Add("/Views/Shared/VueComponents/{0}.cshtml");
-});
+//builder.Services.AddMvc().AddRazorOptions(opt => {
+//    opt.ViewLocationFormats.Add("/Views/Shared/VueComponents/{0}.cshtml");
+//});
 
 var app = builder.Build();
 
