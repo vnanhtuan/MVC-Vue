@@ -2,68 +2,61 @@
 @using MVC_Vue.ViewComponents
 @model List<Menu> 
 
-<div style="height: 600px; width: 100%; background-color: #3f5d50">
-    <v-app-bar color="#3F5D50" flat>
-        <template v-slot:prepend>
-            <v-app-bar-nav-icon class="d-md-none"></v-app-bar-nav-icon>
-        </template>
+<div id="menu-list" style="width: 100%; background-color: #3f5d50">
+    <div>
+        <transition name="menu">
+            <div class="custom-menu" v-show="drawer">
+                <div class="close-icon-container">
+                    <v-icon class="far fa-solid fa-xmark close-icon" v-on:click="drawer = false"></v-icon>
+                </div>
+                <div class="menu-content">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var menu = Model[i];
+                        <a href="@menu.Url" class="menu-item">
+                            @menu.Name
+                        </a>
+                    }
+                </div>
+            </div>
+        </transition>
         
-        <v-app-bar-title>JADE SEA</v-app-bar-title>
-        <v-tabs v-model="tab" align-tabs="center" color="yellow">
+    </div>
+    <v-app-bar 
+        color="#3F5D50" class="menu-list" flat
+        image="/logo1.jpg">
+        <template v-slot:image>
+          <v-img
+            gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+          ></v-img>
+        </template>
+        <template v-slot:append>
+            <v-icon class="far fa-user pe-12" color=""></v-icon>
+            <div class="cart-icon-wrapper pe-8" v-on:click="showCart">
+                <v-icon class="fas fa-cart-shopping" color="">
+                </v-icon>
+                 <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+            </div>
+            <cart-component ref="cartComp"></cart-component>
+            <v-app-bar-nav-icon v-on:click="drawer = !drawer"  class="d-sm-none d-lg-none d-md-none"></v-app-bar-nav-icon>
+        </template>
+        <div>
+            <a href="/" style="text-decoration: none; cursor: pointer;">
+            <v-img name="logo" src="\logo1.jpg" class="rounded-circle" :width="50"
+                        aspect-ratio="1/1"
+                        default></v-img>
+            </a>
+        </div>
+        
+        <v-tabs v-model="tab" align-tabs="center" color="yellow" class="d-none d-sm-block d-lg-block d-md-block">
             @for (int i = 0; i < Model.Count; i++)
             {
                 var menu = Model[i];
-                <v-tab :value="@(@i + 1)" class="text-none" href="@menu.Url" v-on:click="explore()">
+                <v-tab :value="@(@i + 1)" class="text-none" href="@menu.Url" v-on:click="chooseMenuItem()">
                     @menu.Name
                 </v-tab>
             }
         </v-tabs>
-        <v-icon class="far fa-user ml-16 mr-4" color=""></v-icon>
-        <v-icon class="fas fa-dolly me-4" color=""></v-icon>
     </v-app-bar>
-    <v-row>
-        <v-col cols="5" class="CG">
-            <h1 class="text-white CT" style="font-weight: 700; font-size: 3em">
-                SEA, SALT, SUN
-            </h1>
-            <br />
-            <h1 class="text-white CT" style="font-weight: 700; font-size: 3em">
-                Vitamin D
-            </h1>
-            <p class="text-grey CT">
-                JADE SEA swimsuit ra đời từ tình yêu biển và đam mê các môn thể thao nước. <br />
-                JADE SEA sáng tạo các thiết kế swim suit thời thượng và chất lượng<br /> 
-                tối ưu sự thoải mái và linh hoạt khi vận động dưới nước, khơi dậy sự tự tin và quyến rũ trong bạn
-            </p>
-            <v-btn class="text-none mt-10 mr-5 CT"
-                   color="yellow"
-                   min-width="92"
-                   rounded>
-                Shop Now
-            </v-btn>
-            <v-btn class="text-none mt-10"
-                   color="white"
-                   min-width="92"
-                   variant="outlined"
-                   rounded>
-                Explore
-            </v-btn>
-        </v-col>
-        <v-col cols="7" class="CD">
-            <div class=""
-                 style="
-            background: url('dots-light.svg');
-            width: 255px;
-            height: 217px;
-            background-repeat: no-repeat;
-            position: absolute;
-            margin-left: 500px;
-            margin-top: 50px;
-          "></div>
-            <v-img src="\suilt.png"
-                   max-height="600"
-                   contain
-                   class="mb-n16 mr-10"></v-img>
-        </v-col>
-    </v-row>
 </div>
+

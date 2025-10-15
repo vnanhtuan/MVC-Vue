@@ -1,0 +1,172 @@
+@using MVC_Vue.Controllers
+@using MVC_Vue.Databases
+@model Product
+@{
+    ViewData["Title"] = "Sản phẩm chi tiết";
+}
+
+<v-container class="py-16">
+  <v-row>
+        <!-- Images Section - Left on sm+ screens, Top on xs -->
+        <v-col cols="12" sm="6">
+            <v-carousel hide-delimiters height="100%">
+                @foreach (var image in Model.Images)
+                {
+                    <v-carousel-item>
+                        <v-img src="@image.Url" height="100%" cover></v-img>
+                    </v-carousel-item>
+                }
+            </v-carousel>
+        </v-col>
+
+        <!-- Product Info Section - Right on sm+ screens, Below images on xs -->
+        <v-col cols="12" sm="6" class="text-left">
+            <h1 class="text-h4 mb-4">@Model.Name</h1>
+            <p class="text-subtitle-1 mb-2">SKU: 84384444</p>
+            
+            <div class="price-section mb-4">
+                @if (Model.Discount > 0)
+                {
+                    <span class="text-decoration-line-through text-grey mr-2">@Model.Price.ToString("N0")đ</span>
+                    <span class="text-h5 font-weight-bold text-error">@Model.Price.ToString("N0")đ</span>
+                }
+                else
+                {
+                    <span class="text-h5 font-weight-bold">@Model.Price.ToString("N0")đ</span>
+                }
+            </div>
+
+            <!-- Color Selection -->
+            <div class="mb-4">
+                <p class="text-subtitle-1 mb-2">Màu sắc</p>
+                <v-chip-group v-model="selectedColor" mandatory>
+                  <v-chip filter>Xanh Jean</v-chip>
+                </v-chip-group>
+            </div>
+
+            <!-- Size Selection -->
+            <div class="mb-4">
+                <p class="text-subtitle-1 mb-2">Kích thước</p>
+                <v-chip-group v-model="selectedSize" mandatory>
+                    
+                        <v-chip filter>S</v-chip>
+                    
+                </v-chip-group>
+            </div>
+
+            <!-- Quantity -->
+            <div class="mb-6">
+                <p class="text-subtitle-1 mb-2">Số lượng</p>
+                <v-text-field
+                    v-model="quantity"
+                    type="number"
+                    min="1"
+                    density="compact"
+                    style="max-width: 100px"
+                ></v-text-field>
+            </div>
+            <div class="d-none d-sm-block">
+              <v-row>
+                  <v-col cols="6">
+                      <v-btn 
+                          block
+                          variant="outlined"
+                          class="btn-main"
+                          v-on:click="addToCart"
+                      >
+                          Thêm vào giỏ
+                      </v-btn>
+                  </v-col>
+                  <v-col cols="6">
+                      <v-btn 
+                          block 
+                          class="btn-light-blue"
+                          v-on:click="buyNow"
+                      >
+                          Mua ngay
+                      </v-btn>
+                  </v-col>
+              </v-row>
+            </div>
+        </v-col>
+    </v-row>
+
+    <!-- Description Section - Full width -->
+    <v-row class="mt-8">
+        <v-col cols="12">
+            <h2 class="text-h5 mb-4">Mô tả sản phẩm</h2>
+            <div class="text-body-1">Đây là mô tả sản phẩm</div>
+        </v-col>
+    </v-row>
+
+    <!-- Fixed Bottom Buttons on xs screens -->
+    <v-footer app class="d-sm-none mobile-footer" elevation="4">
+        <v-row no-gutters>
+            <v-col cols="5">
+                <v-btn 
+                    block 
+                    variant="outlined"
+                    class="btn-main"
+                    v-on:click="addToCart"
+                >
+                    Thêm vào giỏ
+                </v-btn>
+            </v-col>
+            <v-col cols="5">
+                <v-btn 
+                    block 
+                    class="btn-light-blue"
+                    v-on:click="buyNow"
+                >
+                    Mua ngay
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-footer>
+
+    
+</v-container>
+
+@section Scripts {
+    <script>
+        const app = mount('#app',
+             {
+                data() {
+                  return {
+                    drawer: false,
+                    selectedColor: null,
+                    selectedSize: null,
+                    quantity: 1,
+                    product: @Html.Raw(Json.Serialize(Model)) 
+                  }
+                },
+                setup() {
+                  const tab = Vue.ref(2);
+                  return { tab };
+                },
+                mounted() {
+                  console.log("mounted product");
+                },
+                methods: {
+                  addToCart() {
+                    console.log("addToCart function");
+                    const productToAdd = {
+                        ...this.product,
+                        quantity: this.quantity,
+                        selectedColor: this.selectedColor,
+                        selectedSize: this.selectedSize
+                    };
+                    window.addToCart(productToAdd);
+                  },
+                  buyNow() {
+                      // Buy now logic
+                      console.log('Buy now');
+                  },
+                  chooseMenuItem(){
+                    console.log("chooseMenuItem function");
+                  }
+                }
+             },
+        );
+    </script>
+}

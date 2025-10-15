@@ -6,11 +6,11 @@
 
 <v-container class="py-16 text-center">
     <!--Cách render từ Razor: render dựa vào vue. Biến 'clients' được khai báo từ js-->
-    @await Html.PartialAsync("_HeroSection")
-    @await Html.PartialAsync("_Choose")
+    @*@await Html.PartialAsync("_HeroSection")*@
+    @*@await Html.PartialAsync("_Choose")*@
     <!--Cách render từ Razor: render data sẵn. tốt cho SEO-->
-    @await Html.PartialAsync("_Carousel", Model.Images)
-    @await Html.PartialAsync("_Modern")
+    @*@await Html.PartialAsync("_Carousel", Model.Images)*@
+    @await Html.PartialAsync("_Modern", Model.Categories)
 </v-container>
 
 <!-- FEATURE CATEGORIES -->
@@ -31,6 +31,11 @@
     <script>
         const app = mount('#app',
              {
+                data() {
+                    return {
+                        drawer: false,
+                    }
+                },
                 setup() {
                     const tab=Vue.ref(1);
                     const clients = [
@@ -91,15 +96,23 @@
                       "fab fa-instagram-square",
                     ];
 
-                    return{tab, clients, chooses, moders, icons};
+                    return { tab, clients, chooses, moders, icons };
                 },
                 mounted() {
                   console.log("mounted 1");
                 },
                 methods: {
-                  explore(){
-                    console.log("explore function");
-                  }
+                  chooseMenuItem(){
+                    console.log("chooseMenuItem function");
+                  },
+                  showCart() {
+                        if (this.$refs.cartComp) {
+                            this.$refs.cartComp.dialog = true;
+                            console.log('Cart dialog opened');
+                        } else {
+                            console.error('Cart component not found');
+                        }
+                    },
                 }
              },
              //{ 'home-carousel': HomeCarousel }   // đăng ký sớm
