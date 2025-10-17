@@ -129,7 +129,8 @@
 
 @section Scripts {
     <script>
-        const app = mount('#app',
+    document.addEventListener('DOMContentLoaded', function () {
+        mount('#app',
              {
                 data() {
                   return {
@@ -162,11 +163,10 @@
                       // Buy now logic
                       console.log('Buy now');
                   },
-                  chooseMenuItem(){
-                    console.log("chooseMenuItem function");
-                  }
+                  
                 }
              },
         );
+    });
     </script>
 }

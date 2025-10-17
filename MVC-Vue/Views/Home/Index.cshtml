@@ -29,7 +29,8 @@
 
 @section Scripts {
     <script>
-        const app = mount('#app',
+    document.addEventListener('DOMContentLoaded', function () {
+        mount('#app',
              {
                 data() {
                     return {
@@ -38,87 +39,20 @@
                 },
                 setup() {
                     const tab=Vue.ref(1);
-                    const clients = [
-                        { title: "Nordic Chair", avatar: "product-1.png", price: "$50.00" },
-                        { title: "Kruzo Aero Chair", avatar: "product-2.png", price: "$78.00" },
-                        { title: "Ergonomic Chair", avatar: "product-3.png", price: "$43.00" },
-                    ];
-                    const chooses = [
-                        {
-                            title: "Fast & Free Shipping",
-                            icon: "fas fa-shipping-fast",
-                            desciption:
-                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
-                        },
-                        {
-                            title: "Easy to Shop",
-                            icon: "fas fa-shopping-bag",
-                            desciption:
-                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
-                        },
-                        {
-                            title: "24/7 Support",
-                            icon: "far fa-life-ring",
-                            desciption:
-                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
-                        },
-                        {
-                            title: "Hassle Free Returns",
-                            icon: "fas fa-sync-alt",
-                            desciption:
-                                "Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.",
-                        },
-                    ];
-                    const moders = [
-                        {
-                            title: "Nordic Chair",
-                            avatar: "product-1.png",
-                            obs: "Donec facilisis quam ut purus rutrum",
-                            obs1: "lobortis. Donec vitae ",
-                        },
-                        {
-                            title: "Kruzo Aero Chair",
-                            avatar: "product-2.png",
-                            obs: "Donec facilisis quam ut purus rutrum",
-                            obs1: "lobortis. Donec vitae ",
-                        },
-                        {
-                            title: "Ergonomic Chair",
-                            avatar: "product-3.png",
-                            obs: "Donec facilisis quam ut purus rutrum",
-                            obs1: "lobortis. Donec vitae ",
-                        },
-                    ];
-                    const icons = [
-                      "fab fa-facebook",
-                      "fab fa-twitter",
-                      "fab fa-linkedin",
-                      "fab fa-instagram-square",
-                    ];
-
-                    return { tab, clients, chooses, moders, icons };
+                    return { tab };
                 },
                 mounted() {
                   console.log("mounted 1");
                 },
                 methods: {
-                  chooseMenuItem(){
-                    console.log("chooseMenuItem function");
-                  },
-                  showCart() {
-                        if (this.$refs.cartComp) {
-                            this.$refs.cartComp.dialog = true;
-                            console.log('Cart dialog opened');
-                        } else {
-                            console.error('Cart component not found');
-                        }
-                    },
+                    
                 }
              },
              //{ 'home-carousel': HomeCarousel }   // đăng ký sớm
 
         );
 
+    });
 
     </script>
 }
