@@ -2,12 +2,11 @@ import { cartState } from '../state/cart.js';
 
 export async function loadComponent(url) {
     const response = await fetch(url);
-    const html = await response.text();
+    const html = await response.text(); 
     return {
         template: html,
         data() {
             return {
-                dialog: false,
                 // Cung cấp cartItems cho template của component
                 get cartItems() {
                     return cartState.items;

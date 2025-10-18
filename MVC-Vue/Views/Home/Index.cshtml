@@ -28,8 +28,8 @@
 </v-container> *@
 
 @section Scripts {
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script type="module">
+        import { mount } from '/js/site.js';
         mount('#app',
              {
                 data() {
@@ -51,8 +51,6 @@
              //{ 'home-carousel': HomeCarousel }   // đăng ký sớm
 
         );
-
-    });
 
     </script>
 }

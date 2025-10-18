@@ -32,12 +32,11 @@
         </template>
         <template v-slot:append>
             <v-icon class="far fa-user pe-12" color=""></v-icon>
-            <div class="cart-icon-wrapper pe-8" v-on:click="showCart">
+            <router-link to="/cart" class="cart-icon-wrapper pe-8">
                 <v-icon class="fas fa-cart-shopping" color="">
                 </v-icon>
                  <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
-            </div>
-            <cart-component ref="cartComp"></cart-component>
+            </router-link>
             <v-app-bar-nav-icon v-on:click="drawer = !drawer"  class="d-sm-none d-lg-none d-md-none"></v-app-bar-nav-icon>
         </template>
         <div>

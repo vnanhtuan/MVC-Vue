@@ -34,4 +34,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "spa-fallback",
+    pattern: "cart", // Chỉ bắt đường dẫn /cart
+    defaults: new { controller = "Home", action = "Index" }); // Luôn trả về Home/Index
+
 app.Run();

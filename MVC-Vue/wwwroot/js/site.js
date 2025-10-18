@@ -1,23 +1,25 @@
 ﻿import { vuetify } from './plugins/vuetify.js';
 import { cartState, cartCount, addToCart } from './state/cart.js';
-import { loadComponent } from './utils/loaders.js';
+import { router } from './router/index.js';
+
+// Dùng reactive của Vue để theo dõi trạng thái route
+const { reactive } = Vue;
+const viewState = reactive({
+    // Biến này theo dõi xem chúng ta có đang ở route do client quản lý không
+    isClientRouteActive: false 
+});
+
+// 2. Cập nhật trạng thái viewState mỗi khi route thay đổi
+router.afterEach((to) => {
+    // Nếu đường dẫn là /cart, đặt là true. Nếu không, là false.
+    viewState.isClientRouteActive = to.path === '/cart';
+});
+// 3. Xử lý tải trang lần đầu
+// Nếu người dùng F5 hoặc vào thẳng /cart
+viewState.isClientRouteActive = router.currentRoute.value.path === '/cart';
 
 // 1. Định nghĩa các phương thức (methods) dùng chung
 const globalMethods = {
-    /**
-     * Mở dialog giỏ hàng.
-     * Hàm này giả định component giỏ hàng có ref="cartComp"
-     */
-    showCart() {
-        // 'this' ở đây sẽ trỏ tới instance của Vue
-        if (this.$refs.cartComp) {
-            this.$refs.cartComp.dialog = true;
-            console.log('Global showCart dialog opened');
-        } else {
-            console.error('Cart component not found. Make sure <cart-component ref="cartComp"></cart-component> exists.');
-        }
-    },
-    
     /**
      * Xử lý khi chọn một mục menu.
      */
@@ -26,7 +28,7 @@ const globalMethods = {
     }
 };
 
-async function mount(selector, pageOptions, extraComponents = {}) {
+export async function mount(selector, pageOptions, extraComponents = {}) {
     const root = document.querySelector(selector);
     if (!root) return;
 
@@ -38,7 +40,8 @@ async function mount(selector, pageOptions, extraComponents = {}) {
             ...pageSetupResult,
             cartState,
             cartCount,
-            addToCart
+            addToCart,
+            viewState
         };
     };
 
@@ -48,22 +51,20 @@ async function mount(selector, pageOptions, extraComponents = {}) {
         ...(pageOptions.methods || {}) // Các hàm riêng của trang (nếu có)
     };
 
-    const appOptions = { ...pageOptions, setup: combinedSetup, methods: combinedMethods };
+    const appOptions = { 
+        ...pageOptions, 
+        setup: combinedSetup, 
+        methods: combinedMethods 
+    };
     const app = Vue.createApp(appOptions);
 
     // Sử dụng các plugin
     app.use(vuetify);
-
-    // Đăng ký các component toàn cục cần thiết
-    const cartDialogComponent = await loadComponent('/components/cart.html'); // Đảm bảo đúng đường dẫn
-    if (cartDialogComponent) {
-        app.component('cart-component', cartDialogComponent);
-    }
+    app.use(router);
     
     // Mount ứng dụng
     app.mount(root);
 }
-window.mount = mount;
 
 
 
