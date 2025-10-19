@@ -30,6 +30,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// ROUTE CHO ADMIN SPA (SỬ DỤNG AREA)
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "manage/{*path}",
+    defaults: new { area = "Admin", controller = "Manage", action = "Index" }
+);
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

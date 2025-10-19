@@ -2,12 +2,12 @@
 @using MVC_Vue.ViewComponents
 @model List<Menu> 
 
-<div id="menu-list" style="width: 100%; background-color: #3f5d50">
+<div id="menu-list" style="width: 100%;">
     <div>
         <transition name="menu">
-            <div class="custom-menu" v-show="drawer">
+            <div class="custom-menu" v-show="drawer" v-cloak>
                 <div class="close-icon-container">
-                    <v-icon class="far fa-solid fa-xmark close-icon" v-on:click="drawer = false"></v-icon>
+                    <v-icon class="far fa-solid fa-xmark close-icon" v-on:click="drawer = false" color="white"></v-icon>
                 </div>
                 <div class="menu-content">
                     @for (int i = 0; i < Model.Count; i++)
@@ -20,7 +20,6 @@
                 </div>
             </div>
         </transition>
-        
     </div>
     <v-app-bar 
         color="#3F5D50" class="menu-list" flat
@@ -31,9 +30,9 @@
           ></v-img>
         </template>
         <template v-slot:append>
-            <v-icon class="far fa-user pe-12" color=""></v-icon>
+            <v-icon class="far fa-user pe-12" color="white"></v-icon>
             <router-link to="/cart" class="cart-icon-wrapper pe-8">
-                <v-icon class="fas fa-cart-shopping" color="">
+                <v-icon class="fas fa-cart-shopping" color="white">
                 </v-icon>
                  <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
             </router-link>

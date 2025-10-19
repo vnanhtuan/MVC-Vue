@@ -1,0 +1,23 @@
+<v-app>
+  <v-layout>
+      <v-app-bar color="primary">
+          <v-app-bar-title>Trang Quản Trị</v-app-bar-title>
+          <v-spacer></v-spacer>
+          <v-btn @click="handleLogout">Đăng xuất</v-btn>
+      </v-app-bar>
+
+      <v-navigation-drawer permanent>
+          <v-list density="compact" nav>
+              <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
+              <v-list-item prepend-icon="mdi-package-variant" title="Sản phẩm" value="products"></v-list-item>
+              <v-list-item prepend-icon="mdi-cart" title="Đơn hàng" value="orders"></v-list-item>
+          </v-list>
+      </v-navigation-drawer>
+
+      <v-main>
+          <v-container>
+              <h1>Chào mừng bạn đến trang quản trị</h1>
+          </v-container>
+      </v-main>
+  </v-layout>
+</v-app>

@@ -2,7 +2,7 @@
 import { loadComponent } from '../utils/loaders.js';
 
 // 1. Load component trang giỏ hàng
-const CartPageComponent = await loadComponent('./components/cart.html');
+const CartPageComponent = await loadComponent('/components/cart.html');
 
 // 2. Component rỗng cho các trang được render từ server
 // Đây là một "mẹo" để Vue Router không hiển thị gì cả
@@ -27,4 +27,10 @@ const routes = [
 export const router = VueRouter.createRouter({
     history: VueRouter.createWebHistory(),
     routes,
+
+    //Tự động cuộn lên đầu trang mỗi khi chuyển route.
+    scrollBehavior(to, from, savedPosition) {
+        // Luôn cuộn về đầu trang
+        return { top: 0 };
+    }
 });

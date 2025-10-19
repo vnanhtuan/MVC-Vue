@@ -4,7 +4,7 @@
     ViewData["Title"] = "Kham pha san pham moi";
 }
 
-<v-container class="py-16 text-center">
+<v-container class="py-16 text-center" fluid>
     <!--Cách render từ Razor: render dựa vào vue. Biến 'clients' được khai báo từ js-->
     @*@await Html.PartialAsync("_HeroSection")*@
     @*@await Html.PartialAsync("_Choose")*@
@@ -29,7 +29,7 @@
 
 @section Scripts {
     <script type="module">
-        import { mount } from '/js/site.js';
+        import { mount } from '/js/main.js';
         mount('#app',
              {
                 data() {

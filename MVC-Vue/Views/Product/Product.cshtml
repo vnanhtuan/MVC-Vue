@@ -40,7 +40,11 @@
             <div class="mb-4">
                 <p class="text-subtitle-1 mb-2">Màu sắc</p>
                 <v-chip-group v-model="selectedColor" mandatory>
-                  <v-chip filter>Xanh Jean</v-chip>
+                    <v-chip
+                        v-for="color in availableColors"
+                        :key="color"
+                        :value="color">
+                        {{ color }}
                 </v-chip-group>
             </div>
 
@@ -48,9 +52,11 @@
             <div class="mb-4">
                 <p class="text-subtitle-1 mb-2">Kích thước</p>
                 <v-chip-group v-model="selectedSize" mandatory>
-                    
-                        <v-chip filter>S</v-chip>
-                    
+                    <v-chip
+                        v-for="size in availableSizes"
+                        :key="size"
+                        :value="size">
+                        {{ size }}
                 </v-chip-group>
             </div>
 
@@ -72,7 +78,7 @@
                           block
                           variant="outlined"
                           class="btn-main"
-                          v-on:click="addToCart"
+                          v-on:click="addToCart(productToAdd)"
                       >
                           Thêm vào giỏ
                       </v-btn>
@@ -107,7 +113,7 @@
                     block 
                     variant="outlined"
                     class="btn-main"
-                    v-on:click="addToCart"
+                    v-on:click="addToCart(productToAdd)"
                 >
                     Thêm vào giỏ
                 </v-btn>
@@ -129,7 +135,7 @@
 
 @section Scripts {
     <script type="module">
-    import { mount } from '/js/site.js';
+    import { mount } from '/js/main.js';
         mount('#app',
              {
                 data() {
@@ -138,27 +144,35 @@
                     selectedColor: null,
                     selectedSize: null,
                     quantity: 1,
-                    product: @Html.Raw(Json.Serialize(Model)) 
+                    product: @Html.Raw(Json.Serialize(Model)),
+
+                    // TẠO MỘT MẢNG CÁC MÀU
+                    availableColors: ['Xanh Jean', 'Xanh đen', 'Xám', 'Trắng'],
+                    availableSizes: ['S', 'M', 'L', 'XL']
                   }
                 },
                 setup() {
                   const tab = Vue.ref(2);
                   return { tab };
                 },
+                computed: {
+                    productToAdd() {
+                        return {
+                          id: this.product.id,
+                          name: this.product.name,
+                          price: this.product.price,
+                          // Lấy dữ liệu từ v-model
+                          color: this.selectedColor,
+                          size: this.selectedSize,
+                          quantity: this.quantity,
+                          image: this.product.images.length > 0 ? this.product.images[0].url : ''
+                        };
+                    }
+                },
                 mounted() {
                   console.log("mounted product");
                 },
                 methods: {
-                  addToCart() {
-                    console.log("addToCart function");
-                    const productToAdd = {
-                        ...this.product,
-                        quantity: this.quantity,
-                        selectedColor: this.selectedColor,
-                        selectedSize: this.selectedSize
-                    };
-                    window.addToCart(productToAdd);
-                  },
                   buyNow() {
                       // Buy now logic
                       console.log('Buy now');

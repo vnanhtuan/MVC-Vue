@@ -5,16 +5,29 @@ export const cartState = reactive({
 });
 
 export function addToCart(product) {
-    const existingItem = cartState.items.find(item => item.id === product.id);
-    
+    console.log("Adding to cart:", product);
+
+    // Lấy số lượng từ đối tượng sản phẩm
+    const quantityToAdd = product.quantity || 1;
+
+    // Tìm một sản phẩm *giống hệt* (cùng ID, màu, và size)
+    const existingItem = cartState.items.find(item => 
+        item.id === product.id &&
+        item.color === product.color &&
+        item.size === product.size
+    );
+
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantityToAdd;
     } else {
         cartState.items.push({
             id: product.id,
             name: product.name,
             price: product.price,
-            quantity: 1
+            color: product.color,
+            size: product.size,
+            image: product.image,
+            quantity: quantityToAdd // Sử dụng số lượng đã truyền vào
         });
     }
 }
