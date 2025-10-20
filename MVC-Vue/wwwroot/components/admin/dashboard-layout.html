@@ -1,0 +1,33 @@
+<v-app>
+  <v-layout>
+    <v-app-bar color="primary">
+        <v-app-bar-title>Trang Quản Trị</v-app-bar-title>
+        <v-spacer></v-spacer>
+        <v-tooltip location="bottom">
+            <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" icon="mdi-logout" @click="handleLogout"></v-btn>
+            </template>
+            <span>Đăng xuất</span>
+        </v-tooltip>
+    </v-app-bar>
+    <v-navigation-drawer permanent>
+        <v-list density="compact" nav>
+            <router-link to="/manage" custom v-slot="{ navigate }">
+            <v-list-item @click="navigate" prepend-icon="mdi-view-dashboard" 
+                            title="Dashboard" value="dashboard"></v-list-item>
+            </router-link>
+            
+            <router-link to="/manage/products" custom v-slot="{ navigate }">
+            <v-list-item @click="navigate" prepend-icon="mdi-package-variant" 
+                            title="Sản phẩm" value="products"></v-list-item>
+            </router-link>
+
+            <v-list-item prepend-icon="mdi-cart" title="Đơn hàng" value="orders"></v-list-item>
+        </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+        <router-view></router-view>
+    </v-main>
+  </v-layout>
+</v-app>

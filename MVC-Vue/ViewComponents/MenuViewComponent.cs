@@ -8,7 +8,7 @@ namespace MVC_Vue.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             // Fetch data
-            List<Menu> _menus = MenuDatabase.GetMenus();
+            List<MenuData> _menus = MenuDatabase.GetMenus();
             return View("MenuList", _menus); // Return the view and data
         }
     }

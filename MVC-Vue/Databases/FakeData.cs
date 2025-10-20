@@ -1,10 +1,12 @@
-﻿namespace MVC_Vue.Databases
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace MVC_Vue.Databases
 {
     public static class MenuDatabase
     {
-        public static List<Menu> GetMenus()
+        public static List<MenuData> GetMenus()
         {
-            var menuData = new List<Menu>()
+            var menuData = new List<MenuData>()
             {
                 new()
                 {
@@ -166,7 +168,7 @@
         }
     }
 
-    public class Menu
+    public class MenuData
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -194,5 +196,53 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string UserName { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+
+    public static class UserDatabase
+    {
+        public static User? GetUserById(int id)
+        {
+            List<User> _users = GetUsers();
+            return _users.FirstOrDefault(p => p.Id == id);
+        }
+
+        public static User? LoginUser(string username, string password)
+        {
+            List<User> _users = GetUsers();
+            return _users.FirstOrDefault(p => p.UserName == username && p.Password == password);
+        }
+        public static List<User> GetUsers()
+        {
+            var _users = new List<User>();
+
+            _users.Add(new User
+            {
+                Id = 1,
+                Name = "Admin",
+                UserName = "admin@test.com",
+                Email = "admin@test.com",
+                Password = "123456",
+            });
+
+            _users.Add(new User
+            {
+                Id = 2,
+                Name = "Jack",
+                UserName = "jack@test.com",
+                Email = "jack@test.com",
+                Password = "123456",
+            });
+
+            return _users;
+        }
     }
 }
