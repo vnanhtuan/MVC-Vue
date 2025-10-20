@@ -3,6 +3,7 @@ import { LoginPage } from './pages/login.js';
 import { DashboardPage } from './pages/dashboard-layout.js';
 import { DashboardContentPage } from './pages/dashboard-content.js';
 import { ProductListPage } from './pages/product-list.js';
+import { ProductDetailPage } from './pages/product-detail.js';
 
 // 2. ĐỊNH NGHĨA ROUTES (Sạch sẽ)
 const routes = [
@@ -25,6 +26,12 @@ const routes = [
                 name: 'Products',
                 component: ProductListPage // Component trang sản phẩm
             },
+            {
+                // :id là một tham số động
+                path: 'products/:id', 
+                name: 'ProductDetail',
+                component: ProductDetailPage
+            }
         ]
     },
 ];

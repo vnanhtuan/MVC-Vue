@@ -1,0 +1,85 @@
+<v-container fluid>
+    <!-- Hiển thị loading spinner -->
+    <div v-if="loading" class="text-center pa-16">
+        <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+    </div>
+
+    <!-- Hiển thị form khi đã tải xong -->
+    <v-form v-else-if="product">
+        <v-card>
+            <!-- Header của trang -->
+            <v-card-title class="d-flex align-center">
+                <!-- Nút quay lại -->
+                <v-btn icon="mdi-arrow-left" variant="text" @click="goBack"></v-btn>
+                
+                <span class="ms-2">Chi tiết Sản phẩm</span>
+                
+                <v-spacer></v-spacer>
+
+                <!-- Nút lưu -->
+                <v-btn color="primary" @click="saveProduct">Lưu thay đổi</v-btn>
+            </v-card-title>
+
+            <v-divider></v-divider>
+
+            <!-- Form nội dung -->
+            <v-card-text>
+                <v-row>
+                    <!-- Cột trái: Thông tin cơ bản -->
+                    <v-col cols="12" md="8">
+                        <v-text-field
+                            v-model="product.name"
+                            label="Tên sản phẩm"
+                            variant="outlined"
+                            density="compact"
+                        ></v-text-field>
+
+                        <v-textarea
+                            v-model="product.description"
+                            label="Mô tả"
+                            variant="outlined"
+                            density="compact"
+                            rows="10"
+                        ></v-textarea>
+                    </v-col>
+
+                    <!-- Cột phải: Giá, ảnh, số lượng -->
+                    <v-col cols="12" md="4">
+                        <v-card variant="tonal">
+                            <v-card-text>
+                                <v-text-field
+                                    v-model.number="product.price"
+                                    label="Giá"
+                                    type="number"
+                                    variant="outlined"
+                                    density="compact"
+                                    prefix="đ"
+                                ></v-text-field>
+
+                                <v-text-field
+                                    v-model.number="product.discount"
+                                    label="Giảm giá"
+                                    type="number"
+                                    variant="outlined"
+                                    density="compact"
+                                    prefix="đ"
+                                ></v-text-field>
+
+                                <v-text-field
+                                    v-model.number="product.quantity"
+                                    label="Số lượng tồn kho"
+                                    type="number"
+                                    variant="outlined"
+                                    density="compact"
+                                ></v-text-field>
+
+                                <v-img :src="product.imageUrl" class="mb-4 rounded"></v-img>
+                                <v-file-input label="Thay đổi ảnh" variant="outlined" density="compact"></v-file-input>
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+    </v-form>
+</v-container>

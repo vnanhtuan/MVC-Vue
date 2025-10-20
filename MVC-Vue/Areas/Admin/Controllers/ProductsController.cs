@@ -32,5 +32,19 @@ namespace MVC_Vue.Areas.Admin.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetProductById(int id)
+        {
+            var _products = ProductDatabase.GetProducts();
+            var product = _products.FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound(); // Trả về 404 nếu không tìm thấy
+            }
+
+            return Ok(product);
+        }
     }
 }

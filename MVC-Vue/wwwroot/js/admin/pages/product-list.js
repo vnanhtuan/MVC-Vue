@@ -7,6 +7,9 @@ const templateHtml = await response.text();
 // 2. Export một đối tượng component hoàn chỉnh
 export const ProductListPage = {
     template: templateHtml,
+    components: { // <-- 2. ĐĂNG KÝ EDIT DRAWER LÀ COMPONENT CON
+         
+    },
     data() {
         return {
             products: [],
@@ -14,6 +17,10 @@ export const ProductListPage = {
             totalItems: 0,
             pageSize: 10,
             currentPage: 1,
+
+            // --- THÊM CÁC BIẾN QUẢN LÝ EDIT DRAWER ---
+            isDrawerOpen: false,
+            editingProductId: null,
             
             headers: [
                 { title: 'STT', key: 'stt', sortable: false, width: '50px' },
@@ -51,7 +58,9 @@ export const ProductListPage = {
             }
         },
         editProduct(item) {
-            console.log('Edit:', item.name);
+            // Dùng router để điều hướng sang trang chi tiết
+            // và truyền ID vào params
+            this.$router.push({ name: 'ProductDetail', params: { id: item.id } });
         },
         deleteProduct(item) {
             console.log('Delete:', item.name);
@@ -66,6 +75,8 @@ export const ProductListPage = {
             }
             // Cắt chuỗi và thêm "..."
             return text.substring(0, length) + '...';
-        }
+        },
+
+        
     }
 };
