@@ -45,9 +45,12 @@ namespace MVC_Vue.Databases
             _products.Add(new Product
             {
                 Id = 1,
+                Sku = "JB2995844", 
                 Name = "Quần Jean",
+                Description = "One delivery fee to most locations (check our Orders & Delivery page)",
                 Price = 199000,
                 Discount = 20,
+                Quantity = 3,
                 Images = new List<Image>
                 {
                     new Image
@@ -67,8 +70,11 @@ namespace MVC_Vue.Databases
             _products.Add(new Product
             {
                 Id = 2,
+                Sku = "JB3572888",
                 Name = "OUR LEGACY",
+                Description = "Free returns within 30 days (excludes final sale and made-to-order items)",
                 Price = 1250000,
+                Quantity = 1,
                 Images = new List<Image>
                 {
                     new Image
@@ -100,8 +106,11 @@ namespace MVC_Vue.Databases
             _products.Add(new Product
             {
                 Id = 3,
+                Sku = "JB35735444",
                 Name = "Jil Sander",
+                Description = "Delivery duties are included in the item price when shipping to all EU countries",
                 Price = 2790000,
+                Quantity = 2,
                 Images = new List<Image>
                 {
                     new Image
@@ -133,8 +142,11 @@ namespace MVC_Vue.Databases
             _products.Add(new Product
             {
                 Id = 4,
+                Sku = "JB57338111",
                 Name = "Skall Studio",
+                Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 1790000,
+                Quantity = 1,
                 Images = new List<Image>
                 {
                     new Image
@@ -185,10 +197,13 @@ namespace MVC_Vue.Databases
     public class Product
     {
         public int Id { get; set; }
+        public string Sku { get; set; } = "";
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string Description { get; set; }
         public List<Image> Images { get; set; } = [];
         public float Discount { get; set; } = 0;
+        public int Quantity { get; set; } = 0;
     }
 
     public class Image

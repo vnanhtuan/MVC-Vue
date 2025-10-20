@@ -16,9 +16,11 @@ export const ProductListPage = {
             currentPage: 1,
             
             headers: [
-                { title: 'STT', key: 'stt', sortable: false, width: '80px' },
+                { title: 'STT', key: 'stt', sortable: false, width: '50px' },
+                { title: 'SKU', key: 'sku', sortable: false, width: '100px' },
                 { title: 'Ảnh', key: 'imageUrl', sortable: false },
                 { title: 'Tên Sản Phẩm', key: 'name' },
+                { title: 'Mô tả', key: 'description', sortable: false, width: '250px' },
                 { title: 'Số Lượng', key: 'quantity' },
                 { title: 'Kích Cỡ', key: 'sizes', sortable: false },
                 { title: 'Giảm giá', key: 'discount' },
@@ -53,6 +55,17 @@ export const ProductListPage = {
         },
         deleteProduct(item) {
             console.log('Delete:', item.name);
+        },
+        // THÊM HÀM NÀY VÀO
+        truncateText(text, length) {
+            if (!text) {
+                return '';
+            }
+            if (text.length <= length) {
+                return text;
+            }
+            // Cắt chuỗi và thêm "..."
+            return text.substring(0, length) + '...';
         }
     }
 };

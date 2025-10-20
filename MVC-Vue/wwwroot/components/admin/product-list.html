@@ -24,7 +24,9 @@
                     <v-img :src="item.images[0].url" contain></v-img>
                 </v-avatar>
             </template>
-            
+            <template v-slot:item.description="{ item }">
+                <span>{{ truncateText(item.description, 50) }}</span>
+            </template>
             <template v-slot:item.discount="{ item }">
                 <v-chip :color="item.discount > 0 ? 'green' : 'red'">
                     {{ item.discount }} %
