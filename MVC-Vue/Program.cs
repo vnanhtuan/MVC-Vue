@@ -66,6 +66,12 @@ app.MapControllerRoute(
 );
 
 app.MapControllerRoute(
+    name: "product-detail",
+    pattern: "products/{slug}", // <-- URL đẹp của bạn
+    defaults: new { controller = "Product", action = "Index" }
+);
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 

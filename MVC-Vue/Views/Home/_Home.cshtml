@@ -11,7 +11,7 @@
         {
              <v-col cols="12" xs="6" sm="6" md="6" lg="4">
                 <v-card class="mx-auto" max-width="344" 
-                    href="/Product?id=@item.Id" key="@item.Id"
+                    href="/products/@item.Slug" key="@item.Id"
                     flat>
                     @if(item.Discount > 0)
                     {
@@ -39,7 +39,7 @@
                     <v-btn
                         color="#13547A"
                         variant="text"
-                        href="/Product?id=@item.Id"
+                        href="/products/@item.Slug"
                     >
                         Chi tiết
                     </v-btn>

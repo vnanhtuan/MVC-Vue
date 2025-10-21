@@ -1,12 +1,12 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿
 
 namespace MVC_Vue.Databases
 {
     public static class MenuDatabase
     {
-        public static List<MenuData> GetMenus()
+        public static List<Menu> GetMenus()
         {
-            var menuData = new List<MenuData>()
+            var menuData = new List<Menu>()
             {
                 new()
                 {
@@ -18,7 +18,7 @@ namespace MVC_Vue.Databases
                 {
                     Id = 2,
                     Name = "Shop",
-                    Url = "/Home/Index"
+                    Url = "/shop/index"
                 },
                 new()
                 {
@@ -31,12 +31,52 @@ namespace MVC_Vue.Databases
         }
     }
 
+    public static class CategoryDatabase
+    {
+        public static List<Category> GetCategories()
+        {
+            List<Category> _categories = [];
+
+            _categories.Add(new Category
+            {
+                Id = 1,
+                Name = "Sản phẩm mới",
+                IsHome = true,
+            });
+            _categories.Add(new Category
+            {
+                Id = 2,
+                Name = "Sản phẩm Mùa hè",
+                IsHome = true,
+            });
+            _categories.Add(new Category
+            {
+                Id = 3,
+                Name = "Sản phẩm Bán chạy",
+                IsHome = false,
+            });
+            _categories.Add(new Category
+            {
+                Id = 4,
+                Name = "Sản phẩm giảm giá",
+                IsHome = true,
+            });
+
+            return _categories;
+        }
+    }
+
     public static class ProductDatabase
     {
         public static Product? GetProductById(int id)
         {
             List<Product> _products = GetProducts();
             return _products.FirstOrDefault(p => p.Id == id);
+        }
+        public static Product? GetProductBySlug(string slug)
+        {
+            List<Product> _products = GetProducts();
+            return _products.FirstOrDefault(p => p.Slug == slug);
         }
         public static List<Product> GetProducts()
         {
@@ -45,7 +85,8 @@ namespace MVC_Vue.Databases
             _products.Add(new Product
             {
                 Id = 1,
-                Sku = "JB2995844", 
+                Slug = "quan-jean",
+                Sku = "JB2995844",
                 Name = "Quần Jean",
                 Description = "One delivery fee to most locations (check our Orders & Delivery page)",
                 Price = 199000,
@@ -71,6 +112,7 @@ namespace MVC_Vue.Databases
             {
                 Id = 2,
                 Sku = "JB3572888",
+                Slug = "our-legacy",
                 Name = "OUR LEGACY",
                 Description = "Free returns within 30 days (excludes final sale and made-to-order items)",
                 Price = 1250000,
@@ -107,6 +149,7 @@ namespace MVC_Vue.Databases
             {
                 Id = 3,
                 Sku = "JB35735444",
+                Slug = "jil-sander",
                 Name = "Jil Sander",
                 Description = "Delivery duties are included in the item price when shipping to all EU countries",
                 Price = 2790000,
@@ -143,6 +186,7 @@ namespace MVC_Vue.Databases
             {
                 Id = 4,
                 Sku = "JB57338111",
+                Slug = "skall-studio",
                 Name = "Skall Studio",
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 1790000,
@@ -175,53 +219,10 @@ namespace MVC_Vue.Databases
                     }
                 }
             });
-            
+
             return _products;
         }
     }
-
-    public class MenuData
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; } = string.Empty;
-    }
-
-    public class Category
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Product> Products { get; set; } =[];
-    }
-
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Sku { get; set; } = "";
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public string Description { get; set; }
-        public List<Image> Images { get; set; } = [];
-        public float Discount { get; set; } = 0;
-        public int Quantity { get; set; } = 0;
-    }
-
-    public class Image
-    {   
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-    }
-
-    public class User
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public string UserName { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Password { get; set; } = "";
-    }
-
     public static class UserDatabase
     {
         public static User? GetUserById(int id)
@@ -260,4 +261,51 @@ namespace MVC_Vue.Databases
             return _users;
         }
     }
+
+    public class Menu
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; } = string.Empty;
+    }
+
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsHome { get; set; } = false;
+        public List<Product> Products { get; set; } =[];
+    }
+
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Sku { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string Slug { get; set; } = "";
+        public decimal Price { get; set; }
+        public string Description { get; set; } = "";
+        public List<Image> Images { get; set; } = [];
+        public float Discount { get; set; } = 0;
+        public int Quantity { get; set; } = 0;
+    }
+
+    public class Image
+    {   
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string UserName { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+
+    
+    
 }

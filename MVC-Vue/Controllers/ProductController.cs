@@ -11,9 +11,13 @@ namespace MVC_Vue.Controllers
         {
             _logger = logger;
         }
-    public IActionResult Index(int id)
+    public IActionResult Index(string slug)
     {
-      Product product = ProductDatabase.GetProductById(id) ?? new Product();
+      if (string.IsNullOrEmpty(slug))
+      {
+          return BadRequest();
+      }
+      Product product = ProductDatabase.GetProductBySlug(slug) ?? new Product();
       return View("Product", product);
     }
   }
