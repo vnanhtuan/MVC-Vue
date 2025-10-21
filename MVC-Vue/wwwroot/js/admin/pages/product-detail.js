@@ -9,6 +9,8 @@ export const ProductDetailPage = {
         return {
             product: null,
             loading: true,
+            isUploading: false,
+            imageInputFiles: []
         };
     },
     // mounted(): Chạy khi component được tải
@@ -33,8 +35,49 @@ export const ProductDetailPage = {
                 this.loading = false;
             }
         },
+
+        // --- THÊM HÀM NÀY VÀO ---
+        async handleImageUpload(files) {
+            if (!files || files.length === 0) return;
+            
+            //this.isUploading = true;
+            
+            for (const file of files) {
+                // Tạo FormData để gửi file
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    // Gọi API upload ảnh
+                    const response = await api.post('/api/admin/images/upload', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                    console.log('url', response.data.url);
+                    // Thêm URL tạm trả về vào mảng và hiển thị thumbnail
+                    //this.product.images.push();
+
+                    this.product.images.push({ url: response.data.url });
+
+                } catch (err) {
+                    console.error('Lỗi upload ảnh:', err);
+                }
+            }
+            
+            this.isUploading = false;
+
+            this.imageInputFiles = [];
+        },
+
+        // --- THÊM HÀM NÀY VÀO ---
+        removeImage(index) {
+            // Xóa ảnh khỏi mảng (cả ảnh cũ và ảnh tạm)
+            this.product.images.splice(index, 1);
+        },
         // Hàm lưu thay đổi
         async saveProduct() {
+            console.log('Saving product:', this.product);
             if (!this.product) return;
             try {
                 // Gọi API PUT để cập nhật

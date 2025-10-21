@@ -1,31 +1,21 @@
 <v-container fluid>
-    <!-- Hiển thị loading spinner -->
     <div v-if="loading" class="text-center pa-16">
         <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
     </div>
 
-    <!-- Hiển thị form khi đã tải xong -->
-    <v-form v-else-if="product">
+    <div v-else-if="product" @submit.prevent="saveProduct">
         <v-card>
-            <!-- Header của trang -->
             <v-card-title class="d-flex align-center">
-                <!-- Nút quay lại -->
                 <v-btn icon="mdi-arrow-left" variant="text" @click="goBack"></v-btn>
-                
                 <span class="ms-2">Chi tiết Sản phẩm</span>
-                
                 <v-spacer></v-spacer>
-
-                <!-- Nút lưu -->
                 <v-btn color="primary" @click="saveProduct">Lưu thay đổi</v-btn>
             </v-card-title>
 
             <v-divider></v-divider>
 
-            <!-- Form nội dung -->
             <v-card-text>
                 <v-row>
-                    <!-- Cột trái: Thông tin cơ bản -->
                     <v-col cols="12" md="8">
                         <v-text-field
                             v-model="product.name"
@@ -43,7 +33,6 @@
                         ></v-textarea>
                     </v-col>
 
-                    <!-- Cột phải: Giá, ảnh, số lượng -->
                     <v-col cols="12" md="4">
                         <v-card variant="tonal">
                             <v-card-text>
@@ -62,7 +51,7 @@
                                     type="number"
                                     variant="outlined"
                                     density="compact"
-                                    prefix="đ"
+                                    prefix="%"
                                 ></v-text-field>
 
                                 <v-text-field
@@ -72,14 +61,43 @@
                                     variant="outlined"
                                     density="compact"
                                 ></v-text-field>
-
-                                <v-img :src="product.imageUrl" class="mb-4 rounded"></v-img>
-                                <v-file-input label="Thay đổi ảnh" variant="outlined" density="compact"></v-file-input>
                             </v-card-text>
                         </v-card>
                     </v-col>
-                </v-row>
-            </v-card-text>
+                </v-row> <v-row class="mt-4">
+                    <v-col cols="12">
+                        <v-card variant="tonal">
+                            <v-card-text>
+                                <div class="text-subtitle-2 mb-2">Hình ảnh sản phẩm</div>
+                                
+                                <v-row dense>
+                                    <v-col v-for="(image, index) in product.images" :key="index" cols="4" sm="3" md="2">
+                                        <div style="position: relative;">
+                                            <v-img :src="image.url" aspect-ratio="1" cover class="rounded"></v-img>
+                                            <v-btn
+                                                icon="mdi-close"
+                                                density="compact"
+                                                color="red"
+                                                @click="removeImage(index)"
+                                                style="position: absolute; top: -8px; right: -8px; z-index: 10;"
+                                            ></v-btn>
+                                        </div>
+                                    </v-col>
+                                </v-row>
+                                
+                                <v-file-input
+                                    label="Thêm ảnh"
+                                    variant="outlined"
+                                    density="compact"
+                                    multiple
+                                    v-model="imageInputFiles"
+                                    @update:model-value="handleImageUpload"
+                                    class="mt-4"
+                                ></v-file-input>
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row> </v-card-text>
         </v-card>
-    </v-form>
+    </div>
 </v-container>

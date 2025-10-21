@@ -47,7 +47,6 @@ export const router = window.VueRouter.createRouter({
 // Đây là logic *thuộc về* router, nên để ở đây là hợp lý
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('admin-token');
-
     if (to.name === 'Login') {
         if (isAuthenticated) {
             next({ name: 'Dashboard' });

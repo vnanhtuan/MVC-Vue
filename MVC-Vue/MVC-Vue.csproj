@@ -11,5 +11,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
+    <Watch Remove="wwwroot\uploads\**" />
   </ItemGroup>
 </Project>

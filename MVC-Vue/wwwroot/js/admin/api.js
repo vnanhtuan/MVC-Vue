@@ -18,7 +18,35 @@ api.interceptors.request.use(
         return config; // Gửi request đi với header mới
     }, 
     (error) => {
-        // Xử lý lỗi
+        return Promise.reject(error);
+    }
+);
+
+// (Dùng để bắt lỗi 401 - Unauthorized)
+api.interceptors.response.use(
+    // (response) => response: 
+    // Nếu response thành công (status 2xx), cứ cho nó đi qua
+    (response) => {
+        return response;
+    },
+    
+    // (error) => { ... }:
+    // Nếu response bị lỗi, nó sẽ chạy vào hàm này
+    (error) => {
+        // Kiểm tra xem có lỗi 401 (Unauthorized) không
+        if (error.response && error.response.status === 401) {
+            
+            // 1. Xóa token cũ/hết hạn
+            localStorage.removeItem('admin-token');
+            
+            // 2. Chuyển hướng về trang login
+            // Dùng window.location để reload lại trang, 
+            // đảm bảo mọi trạng thái của Vue được reset sạch sẽ.
+            window.location.href = '/manage/login';
+        }
+        
+        // 3. Đối với các lỗi khác (như 404, 500), 
+        // cứ để component tự xử lý (vào khối 'catch')
         return Promise.reject(error);
     }
 );
