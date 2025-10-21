@@ -22,6 +22,11 @@ export async function loadComponent(url) {
             },
             checkout() {
                 console.log('Checkout');
+            },
+            goBack() {
+                // 'this.$router' có sẵn vì component này
+                // được render bởi <router-view>
+                this.$router.go(-1);
             }
         }
     }

@@ -342,3 +342,28 @@ body {
 .title {
     font-weight: bold;
 }
+
+.sticky-category-bar {
+  /* 1. Kích hoạt hành vi "dính" */
+  position: sticky;
+  
+  /* 2. Gắn nó vào vị trí top 64px
+     (Giả sử menu chính v-app-bar của bạn cao 64px)
+     Nếu menu của bạn cao 48px, hãy đổi thành 48px.
+  */
+  top: 64px; 
+  
+  /* 3. Đảm bảo nó luôn nổi lên trên nội dung khác */
+  z-index: 10; 
+  
+  /* 4. Thêm nền trắng và viền dưới để nó nổi bật */
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 5. Thêm khoảng cách cho lưới sản phẩm bên dưới
+  để nó không bị nhảy khi thanh category "dính" lại
+*/
+.category-margin-top {
+  margin-top: 1.5rem; /* 24px */
+}

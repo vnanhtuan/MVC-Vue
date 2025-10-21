@@ -1,5 +1,17 @@
 <v-container fluid>
-    <h1 class="text-h4 mb-4 title">Giỏ hàng của bạn</h1>
+    <v-row align="center" class="mb-4">
+    <v-col cols="auto">
+        <v-btn
+            icon="mdi-arrow-left"
+            variant="text"
+            @click="goBack"
+        ></v-btn>
+    </v-col>
+    
+    <v-col>
+        <h1 class="text-h4 title">Giỏ hàng của bạn</h1>
+    </v-col>
+</v-row>
     <v-row v-if="!cartItems || cartItems.length === 0">
         <v-col>
             <p>Chưa có sản phẩm nào trong giỏ hàng.</p>

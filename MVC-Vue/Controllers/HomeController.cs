@@ -18,7 +18,7 @@ namespace MVC_Vue.Controllers
             List<Category> _categories = CategoryDatabase.GetCategories().Where(m => m.IsHome == true).ToList();
             foreach (var category in _categories)
             {
-                category.Products = _products;
+                category.Products = _products.Where(m => m.CategoryId == category.Id).ToList();
             }
             var result = new HomeDto
             {

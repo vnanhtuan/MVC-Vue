@@ -1,0 +1,143 @@
+@using MVC_Vue.Databases
+@model ShopViewModel
+@{
+    ViewData["Title"] = "JadeBi Shop";
+}
+<v-container fluid>
+    <div class="sticky-category-bar">
+        <v-col cols="12">
+            <v-chip-group
+                v-model="selectedCategory"
+                mandatory
+                filter
+                color="primary"
+            >
+                <v-chip value="all">Tất cả</v-chip>
+
+                <v-chip
+                    v-for="category in allCategories"
+                    :key="category.id"
+                    :value="category.id">
+                    {{ category.name }}
+                </v-chip>
+            </v-chip-group>
+        </v-col>
+    </div>
+    <v-col cols="12">
+        <v-row>
+            <v-col
+                v-for="product in filteredProducts"
+                :key="product.id"
+                cols="12" xs="6" sm="6" md="6" lg="4"
+            >
+                <v-card
+                    class="mx-auto" 
+                    max-width="344"
+                    :href="'/products/' + product.slug" 
+                    flat
+                >
+                    <div v-if="product.discount > 0" class="discount-badge">
+                        -{{ product.discount }}%
+                    </div>
+
+                    <v-img
+                        :src="product.images[0].url" 
+                        height="500px"
+                        cover
+                    ></v-img>
+
+                    <v-card-title class="text-h6">
+                        {{ product.name }}
+                    </v-card-title>
+
+                    <v-card-subtitle>
+                        <div>
+                            <span v-if="product.discount > 0" class="sale-off-price">
+                                {{ formatCurrency(product.price) }}
+                            </span>
+                            <span class="main-price">
+                                {{ formatCurrency(product.discount > 0 ? (product.price * (1 - product.discount / 100)) : product.price) }}
+                            </span>
+                        </div>
+                    </v-card-subtitle>
+
+                    <v-card-actions>
+                        <v-btn
+                            color="#13547A"
+                            variant="text"
+                            :href="'/products/' + product.slug"
+                        >
+                            Chi tiết
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            variant="outlined"
+                            class="btn-main"
+                            v-on:click.prevent="addToCart(product)"
+                        >
+                            Mua
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+            </v-row>
+
+        <v-row v-if="filteredProducts.length === 0" class="mt-8">
+            <v-col class="text-center text-grey">
+                <p>Không tìm thấy sản phẩm nào trong danh mục này.</p>
+            </v-col>
+        </v-row>
+    </v-col>
+</v-container>
+
+@section Scripts {
+    <script type="module">
+        import { mount } from '/js/main.js'; 
+
+        mount('#app', {
+            data() {
+                return {
+                    drawer: false,
+                    // 1. Nhận dữ liệu từ .NET Model
+                    allCategories: @Html.Raw(Json.Serialize(Model.Categories)),
+                    allProducts: @Html.Raw(Json.Serialize(Model.Products)),
+                    
+                    // 2. Biến trạng thái (state)
+                    selectedCategory: 'all' // Mặc định chọn "Tất cả"
+                }
+            },
+            setup() {
+              const tab = Vue.ref(2);
+              return { tab };
+            },
+            computed: {
+                /**
+                 * Đây là "phép thuật":
+                 * Hàm này sẽ TỰ ĐỘNG chạy lại mỗi khi 'selectedCategory' thay đổi.
+                 */
+                filteredProducts() {
+                    // Nếu chọn "Tất cả", trả về toàn bộ sản phẩm
+                    if (this.selectedCategory === 'all') {
+                        return this.allProducts;
+                    }
+                    
+                    // Nếu chọn 1 danh mục, lọc (filter) danh sách
+                    return this.allProducts.filter(product => {
+                        return product.categoryId === this.selectedCategory;
+                    });
+                }
+            },
+            
+            methods: {
+                // (Bạn có thể thêm hàm format tiền tệ ở đây nếu cần)
+                formatCurrency(value) {
+                    if (!value) value = 0;
+                    return new Intl.NumberFormat('vi-VN', { 
+                        style: 'currency', 
+                        currency: 'VND' 
+                    }).format(value);
+                }
+            }
+        });
+    </script>
+}
