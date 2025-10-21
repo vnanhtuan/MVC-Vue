@@ -64,6 +64,13 @@ export async function mount(selector, pageOptions, extraComponents = {}) {
     
     // Mount ứng dụng
     app.mount(root);
+
+    // --- THÊM 4 DÒNG NÀY VÀO CUỐI HÀM ---
+    const loader = document.getElementById('global-loader');
+    if (loader) {
+        loader.classList.add('loader-hidden');
+        setTimeout(() => { loader.remove(); }, 500); // Xóa sau 0.5s (khớp với transition)
+    }
 }
 
 

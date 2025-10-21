@@ -11,20 +11,56 @@ html {
   }
 }
 
-.CG {
-    margin-top: 100px;
-}
 
-.CT {
-    margin-left: 150px;
-}
 
 body {
   margin-bottom: 60px;
 }
 
-.CRT {
-    margin-left: 100px;
+/*
+  1. Lớp phủ toàn màn hình
+  Nó sẽ che toàn bộ nội dung "lộn xộn" bên dưới.
+*/
+#global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Nền trắng */
+  z-index: 9999; /* Luôn ở trên cùng */
+  
+  /* Căn giữa spinner */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Hiệu ứng mờ dần khi ẩn */
+  transition: opacity 0.5s ease;
+}
+
+/* 2. Spinner (vòng xoay)
+  (Một spinner CSS đơn giản, không cần Vuetify)
+*/
+.loader-spinner {
+  border: 5px solid #f3f3f3; /* Màu xám nhạt */
+  border-top: 5px solid #13547A; /* Màu primary của bạn */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+/* 3. Lớp 'loader-hidden' (để ẩn đi) */
+#global-loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 4. Animation cho spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .v-card--reveal {
