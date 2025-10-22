@@ -29,17 +29,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Bước 3: Đảm bảo Resource Group tồn tại
-    - name: Create Resource Group
-      run: |
-        az group create --name ${{ env.RESOURCE_GROUP }} --location ${{ env.LOCATION }}
-
-    # Bước 4: Tạo ACR nếu chưa có
-    - name: Create ACR if not exists
-      run: |
-        az acr show --name ${{ env.ACR_NAME }} || \
-        az acr create --name ${{ env.ACR_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --sku Basic --location ${{ env.LOCATION }}
-
     # Bước 5: Gán quyền Contributor cho App Service Principal
     - name: Assign Contributor role to Service Principal
       run: |
