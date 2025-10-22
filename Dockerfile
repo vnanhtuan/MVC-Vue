@@ -38,4 +38,4 @@ EXPOSE 80
 EXPOSE 443
 
 # Lệnh khởi chạy ứng dụng
-ENTRYPOINT ["dotnet", "MyProject.dll"]
+ENTRYPOINT ["dotnet", "MVC-Vue.dll"]
