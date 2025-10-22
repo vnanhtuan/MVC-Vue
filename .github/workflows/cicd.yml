@@ -1,62 +1,61 @@
-name: Build, Push, and Deploy to Azure Web App
 
+# Tên của workflow, sẽ hiển thị trong tab "Actions" của GitHub
+name: Build and Push to Azure Container Registry
+
+# 1. TRIGGER: Chạy workflow này khi nào?
+# Chạy khi có push lên nhánh 'main'
 on:
   push:
     branches:
       - main
 
+# Biến môi trường dùng chung cho tất cả jobs
+# Hãy thay thế các giá trị này
 env:
-  RESOURCE_GROUP: MVCVueResourceGroup
-  ACR_NAME: jadebiregistry
-  WEBAPP_NAME: jadebishop
-  IMAGE_NAME: my-jadebi-app
+  ACR_NAME: ${{ secrets.ACR_LOGIN_SERVER }}
+  IMAGE_NAME: my-jadebi-app # Đặt tên image của bạn ở đây
 
+# JOBS: Các công việc cần thực hiện
 jobs:
-  build-push-deploy:
+  build-and-push-image:
+    # 2. RUNNER: Chạy trên máy ảo nào?
+    # Sử dụng máy ảo Ubuntu mới nhất
     runs-on: ubuntu-latest
 
+    # 3. STEPS: Các bước thực thi
     steps:
-      # Bước 1: Lấy code từ repo
-      - name: Checkout code
+      # Bước 1: Checkout code
+      # Tải code từ repo GitHub về máy ảo runner
+      - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
 
-      # Bước 2: Login Azure
-      - name: Azure Login
+      # Bước 2: Đăng nhập vào Azure
+      # Sử dụng secret JSON để xác thực với Azure
+      - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Bước này dùng thông tin đăng nhập Azure (từ bước 2) để lấy token cho Docker 
-      - name: 'Login to Azure Container Registry' 
-        uses: azure/docker-login@v1 
-        with: 
-          login-server: ${{ env.ACR_NAME }} 
-          username: ${{ secrets.ACR_USERNAME }} 
+      
+      # Bước 3: Đăng nhập vào Azure Container Registry (ACR)
+      # Bước này dùng thông tin đăng nhập Azure (từ bước 2) để lấy token cho Docker
+      - name: 'Login to Azure Container Registry'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.ACR_NAME }}
+          username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      # Bước 3: Build & Push image lên ACR
-      - name: Build and Push Docker image
+      # Bước 4: Build và Push Docker image
+      # Đây là bước quan trọng nhất
+      - name: 'Build and push image'
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
+          context: . # Lấy Dockerfile từ thư mục gốc
+          file: ./Dockerfile # Đường dẫn chính xác tới Dockerfile
+          push: true # Đẩy image sau khi build
           tags: |
-            ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
-            ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
-
-      # Bước 4: Cấp quyền AcrPull cho Web App (nếu chưa có)
-      - name: Assign AcrPull role to Web App
-        run: |
-          WEBAPP_ID=$(az webapp show --name $WEBAPP_NAME --resource-group $RESOURCE_GROUP --query identity.principalId -o tsv)
-          ACR_ID=$(az acr show --name $ACR_NAME --query id -o tsv)
-          az role assignment create --assignee $WEBAPP_ID --role AcrPull --scope $ACR_ID || echo "Role already exists"
-
-      # Bước 5: Cập nhật Web App chạy image mới
-      - name: Deploy to Azure Web App
-        run: |
-          az webapp config container set \
-            --name $WEBAPP_NAME \
-            --resource-group $RESOURCE_GROUP \
-            --docker-custom-image-name $ACR_NAME.azurecr.io/${IMAGE_NAME}:latest \
-            --docker-registry-server-url https://$ACR_NAME.azurecr.io
+            ${{ env.ACR_NAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.ACR_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          # 4.1. Gắn 2 tag cho image:
+          # - 'latest': Luôn trỏ đến bản build mới nhất
+          # - Mã SHA của commit: Dùng để xác định chính xác phiên bản (ví dụ: c3a4d5e)
