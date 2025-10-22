@@ -40,8 +40,9 @@ jobs:
       - name: 'Login to Azure Container Registry'
         uses: azure/docker-login@v1
         with:
-          login-server: jadebiregistry.azurecr.io
-          # Không cần username/password vì đã dùng azure/login
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
       # Bước 4: Build và Push Docker image
       # Đây là bước quan trọng nhất
