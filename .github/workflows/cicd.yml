@@ -35,7 +35,8 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      - name: 'Debug ACR Name'
+        run: echo "Value of ACR_NAME variable is: ${{ env.ACR_NAME }}"
       # Bước 3: Đăng nhập vào Azure Container Registry (ACR)
       # Bước này dùng thông tin đăng nhập Azure (từ bước 2) để lấy token cho Docker
       - name: 'Login to Azure Container Registry'
