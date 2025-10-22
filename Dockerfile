@@ -34,8 +34,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Mở port (tùy chọn, giúp gợi ý cổng khi deploy)
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
 
 # Lệnh khởi chạy ứng dụng
 ENTRYPOINT ["dotnet", "MVC-Vue.dll"]
