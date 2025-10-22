@@ -9,7 +9,8 @@
        <v-row>
         @foreach (var item in category.Products)
         {
-             <v-col cols="12" xs="6" sm="6" md="6" lg="4">
+            var finalPrice = item.Price;
+            <v-col cols="12" xs="6" sm="6" md="6" lg="4">
                 <v-card class="mx-auto" max-width="344" 
                     href="/products/@item.Slug" key="@item.Id"
                     flat>
@@ -25,13 +26,16 @@
                     <v-card-title class="text-h6">@item.Name</v-card-title>
                     <v-card-subtitle>
                         <div>
-                            @if(item.Discount > 0) {
+
+                            @if(item.Discount > 0) 
+                            {
+                                finalPrice = item.Price * (1 - (decimal)item.Discount / 100);
                                 <span class="sale-off-price">
-                                    @item.Price.ToString("N0")<span>đ</span>
+                                    {{ $formatCurrency(@item.Price) }}
                                 </span>
                             }
                             <span class="main-price">
-                                @item.Price.ToString("N0")<span>đ</span>
+                                {{ $formatCurrency(@finalPrice) }}
                             </span>
                         </div>
                     </v-card-subtitle>

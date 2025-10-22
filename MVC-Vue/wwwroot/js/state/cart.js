@@ -5,7 +5,6 @@ export const cartState = reactive({
 });
 
 export function addToCart(product) {
-    console.log("Adding to cart:", product);
 
     // Lấy số lượng từ đối tượng sản phẩm
     const quantityToAdd = product.quantity || 1;
@@ -22,6 +21,7 @@ export function addToCart(product) {
     } else {
         cartState.items.push({
             id: product.id,
+            sku: product.sku,
             name: product.name,
             price: product.price,
             color: product.color,

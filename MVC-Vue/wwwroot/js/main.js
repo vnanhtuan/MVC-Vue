@@ -1,6 +1,7 @@
 ﻿import { vuetify } from './plugins/vuetify.js';
 import { cartState, cartCount, addToCart } from './state/cart.js';
 import { router } from './router/index.js';
+import { formatCurrency } from './utils/formatters.js';
 
 // Dùng reactive của Vue để theo dõi trạng thái route
 const { reactive } = Vue;
@@ -61,6 +62,9 @@ export async function mount(selector, pageOptions, extraComponents = {}) {
     // Sử dụng các plugin
     app.use(vuetify);
     app.use(router);
+
+    // Đăng ký hàm $formatCurrency để dùng ở mọi nơi
+    app.config.globalProperties.$formatCurrency = formatCurrency;
     
     // Mount ứng dụng
     app.mount(root);

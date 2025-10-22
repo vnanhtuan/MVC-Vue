@@ -27,12 +27,13 @@
             <div class="price-section mb-4">
                 @if (Model.Discount > 0)
                 {
-                    <span class="text-decoration-line-through text-grey mr-2">@Model.Price.ToString("N0")đ</span>
-                    <span class="text-h5 font-weight-bold text-error">@Model.Price.ToString("N0")đ</span>
+                    var finalPrice = Model.Price * (1 - (decimal)Model.Discount / 100);
+                    <span class="text-decoration-line-through text-grey mr-2">{{ $formatCurrency(@Model.Price) }}</span>
+                    <span class="text-h5 font-weight-bold text-error">{{ $formatCurrency(@finalPrice) }}</span>
                 }
                 else
                 {
-                    <span class="text-h5 font-weight-bold">@Model.Price.ToString("N0")đ</span>
+                    <span class="text-h5 font-weight-bold">{{ $formatCurrency(@Model.Price) }}</span>
                 }
             </div>
 
@@ -101,7 +102,7 @@
     <v-row class="mt-8">
         <v-col cols="12">
             <h2 class="text-h5 mb-4">Mô tả sản phẩm</h2>
-            <div class="text-body-1">Đây là mô tả sản phẩm</div>
+            <div class="text-body-1">@Model.Description</div>
         </v-col>
     </v-row>
 
@@ -159,6 +160,7 @@
                     productToAdd() {
                         return {
                           id: this.product.id,
+                          sku: this.product.sku,
                           name: this.product.name,
                           price: this.product.price,
                           // Lấy dữ liệu từ v-model

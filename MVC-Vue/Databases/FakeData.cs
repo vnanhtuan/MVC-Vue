@@ -46,7 +46,7 @@ namespace MVC_Vue.Databases
             _categories.Add(new Category
             {
                 Id = 2,
-                Name = "Sản phẩm Mùa hè",
+                Name = "Sản phẩm Mùa Đông",
                 IsHome = true,
             });
             _categories.Add(new Category
