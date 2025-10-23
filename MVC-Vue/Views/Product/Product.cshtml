@@ -69,7 +69,10 @@
                     type="number"
                     min="1"
                     density="compact"
+                    variant="outlined"
+                    hide-details
                     style="max-width: 100px"
+                    class="me-3"
                 ></v-text-field>
             </div>
             <div class="d-none d-sm-block">
@@ -163,7 +166,7 @@
                           sku: this.product.sku,
                           name: this.product.name,
                           price: this.product.price,
-                          // Lấy dữ liệu từ v-model
+                          discount: this.product.discount,
                           color: this.selectedColor,
                           size: this.selectedSize,
                           quantity: this.quantity,

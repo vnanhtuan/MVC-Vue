@@ -24,6 +24,7 @@ export function addToCart(product) {
             sku: product.sku,
             name: product.name,
             price: product.price,
+            discount: product.discount,
             color: product.color,
             size: product.size,
             image: product.image,

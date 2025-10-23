@@ -403,3 +403,35 @@ body {
 .category-margin-top {
   margin-top: 1.5rem; /* 24px */
 }
+
+.discount-badge-small {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background-color: red;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem; /* ~12px */
+  font-weight: bold;
+  z-index: 5; /* Đảm bảo nổi trên ảnh */
+}
+
+.sticky-card {
+  /* Các style khác nếu có */
+}
+
+/* 2. THÊM MEDIA QUERY NÀY VÀO:
+  Áp dụng sticky CHỈ KHI màn hình rộng hơn 960px (breakpoint 'md' của Vuetify)
+*/
+@media (min-width: 960px) {
+  .sticky-card {
+    position: sticky;
+    /* top: 80px; 
+      Đặt khoảng cách từ top (ví dụ: 64px chiều cao menu + 16px khoảng đệm)
+      Bạn có thể điều chỉnh giá trị này cho phù hợp
+    */
+    top: 80px; 
+    z-index: 10; /* Đảm bảo nó nổi lên trên */
+  }
+}
