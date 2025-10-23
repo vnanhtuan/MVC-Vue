@@ -52,7 +52,7 @@ namespace MVC_Vue.Databases
             _categories.Add(new Category
             {
                 Id = 3,
-                Name = "Sản phẩm Bán chạy",
+                Name = "Sản phẩm HOT TREND",
                 IsHome = false,
             });
             _categories.Add(new Category
