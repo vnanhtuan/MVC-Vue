@@ -41,25 +41,21 @@ namespace MVC_Vue.Databases
             {
                 Id = 1,
                 Name = "Sản phẩm mới",
-                IsHome = true,
             });
             _categories.Add(new Category
             {
                 Id = 2,
                 Name = "Sản phẩm Mùa Đông",
-                IsHome = true,
             });
             _categories.Add(new Category
             {
                 Id = 3,
                 Name = "Sản phẩm HOT TREND",
-                IsHome = false,
             });
             _categories.Add(new Category
             {
                 Id = 4,
                 Name = "Sản phẩm giảm giá",
-                IsHome = true,
             });
 
             return _categories;
@@ -93,18 +89,16 @@ namespace MVC_Vue.Databases
                 Price = 199000,
                 Discount = 0,
                 Quantity = 3,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 1,
-                        Name = "Quần Jean 1",
                         Url = "https://cdn-images.farfetch-contents.com/32/15/61/31/32156131_62192583_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 2,
-                        Name = "Quần Jean 1",
                         Url = "https://cdn-images.farfetch-contents.com/32/15/61/31/32156131_62325278_1000.jpg"
                     },
                 }
@@ -119,30 +113,26 @@ namespace MVC_Vue.Databases
                 Description = "Free returns within 30 days (excludes final sale and made-to-order items)",
                 Price = 1250000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 3,
-                        Name = "OUR LEGACY",
                         Url = "https://cdn-images.farfetch-contents.com/32/16/21/56/32162156_62388280_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 4,
-                        Name = "OUR LEGACY",
                         Url = "https://cdn-images.farfetch-contents.com/32/16/21/56/32162156_62324822_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 5,
-                        Name = "OUR LEGACY",
                         Url = "https://cdn-images.farfetch-contents.com/32/16/21/56/32162156_62324825_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 6,
-                        Name = "OUR LEGACY",
                         Url = "https://cdn-images.farfetch-contents.com/32/16/21/56/32162156_62324826_1000.jpg"
                     }
                 }
@@ -157,30 +147,26 @@ namespace MVC_Vue.Databases
                 Description = "Delivery duties are included in the item price when shipping to all EU countries",
                 Price = 2790000,
                 Quantity = 2,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 7,
-                        Name = "Jil Sander",
                         Url = "https://cdn-images.farfetch-contents.com/30/01/15/00/30011500_59550711_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 8,
-                        Name = "Jil Sander",
                         Url = "https://cdn-images.farfetch-contents.com/30/01/15/00/30011500_59550669_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 9,
-                        Name = "Jil Sander",
                         Url = "https://cdn-images.farfetch-contents.com/30/01/15/00/30011500_59550710_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 10,
-                        Name = "Jil Sander",
                         Url = "https://cdn-images.farfetch-contents.com/30/01/15/00/30011500_59550684_1000.jpg"
                     }
                 }
@@ -196,30 +182,26 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 1790000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 11,
-                        Name = "Skall Studio",
                         Url = "https://cdn-images.farfetch-contents.com/31/71/70/41/31717041_62367117_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 12,
-                        Name = "Skall Studio",
                         Url = "https://cdn-images.farfetch-contents.com/31/71/70/41/31717041_62367148_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 13,
-                        Name = "Skall Studio",
                         Url = "https://cdn-images.farfetch-contents.com/31/71/70/41/31717041_62367135_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 14,
-                        Name = "Skall Studio",
                         Url = "https://cdn-images.farfetch-contents.com/31/71/70/41/31717041_62367184_1000.jpg"
                     }
                 }
@@ -234,30 +216,26 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 1790000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 15,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/30/62/65/29/30626529_59473259_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 16,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/30/62/65/29/30626529_59473276_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 17,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/30/62/65/29/30626529_59473356_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 18,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/30/62/65/29/30626529_59473296_1000.jpg"
                     }
                 }
@@ -272,30 +250,26 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 600000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 19,
-                        Name = "SANDRO",
                         Url = "https://cdn-images.farfetch-contents.com/29/91/43/49/29914349_61764113_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 20,
-                        Name = "SANDRO",
                         Url = "https://cdn-images.farfetch-contents.com/29/91/43/49/29914349_61764100_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 21,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/29/91/43/49/29914349_61764058_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 22,
-                        Name = "Polo Ralph Lauren",
                         Url = "https://cdn-images.farfetch-contents.com/29/91/43/49/29914349_61764131_1000.jpg"
                     }
                 }
@@ -311,30 +285,26 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 600000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 23,
-                        Name = "Alexander Wang",
                         Url = "https://cdn-images.farfetch-contents.com/30/71/24/40/30712440_60019082_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 24,
-                        Name = "Alexander Wang",
                         Url = "https://cdn-images.farfetch-contents.com/30/71/24/40/30712440_60028477_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 25,
-                        Name = "Alexander Wang",
                         Url = "https://cdn-images.farfetch-contents.com/30/71/24/40/30712440_60028510_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 26,
-                        Name = "Alexander Wang",
                         Url = "https://cdn-images.farfetch-contents.com/30/71/24/40/30712440_60028492_1000.jpg"
                     }
                 }
@@ -349,30 +319,26 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 900000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 27,
-                        Name = "JW Anderson",
                         Url = "https://cdn-images.farfetch-contents.com/30/95/97/84/30959784_59865272_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 28,
-                        Name = "JW Anderson",
                         Url = "https://cdn-images.farfetch-contents.com/30/95/97/84/30959784_59939402_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 29,
-                        Name = "JW Anderson",
                         Url = "https://cdn-images.farfetch-contents.com/30/95/97/84/30959784_59939426_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 30,
-                        Name = "JW Anderson",
                         Url = "https://cdn-images.farfetch-contents.com/30/95/97/84/30959784_59865291_1000.jpg"
                     }
                 }
@@ -387,18 +353,16 @@ namespace MVC_Vue.Databases
                 Description = "Let us handle the legwork.\r\n\r\nDelivery duties are included in the item price when shipping to all EU countries (excluding the Canary Islands), plus The United Kingdom, USA, Canada, China Mainland, Australia, New Zealand, Puerto Rico, Switzerland, Singapore, Republic Of Korea, Kuwait, Mexico, Qatar, India, Norway, Saudi Arabia, Taiwan Region, Thailand, U.A.E., Japan, Brazil, Isle of Man, San Marino, Colombia, Chile, Argentina, Egypt, Lebanon, Hong Kong SAR, and Bahrain. All import duties are included in your order – the price you see is the price you pay.",
                 Price = 2600000,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 31,
-                        Name = "Victoria Beckham",
                         Url = "https://cdn-images.farfetch-contents.com/30/43/97/81/30439781_59366962_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 32,
-                        Name = "Victoria Beckham",
                         Url = "https://cdn-images.farfetch-contents.com/30/43/97/81/30439781_59366960_1000.jpg"
                     }
                 }
@@ -415,30 +379,26 @@ namespace MVC_Vue.Databases
                 Price = 1950000,
                 Discount = 20,
                 Quantity = 1,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 32,
-                        Name = "TOTEME",
                         Url = "https://cdn-images.farfetch-contents.com/30/92/60/03/30926003_61541498_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 33,
-                        Name = "TOTEME",
                         Url = "https://cdn-images.farfetch-contents.com/30/92/60/03/30926003_61634814_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 34,
-                        Name = "TOTEME",
                         Url = "https://cdn-images.farfetch-contents.com/30/92/60/03/30926003_61541518_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 35,
-                        Name = "TOTEME",
                         Url = "https://cdn-images.farfetch-contents.com/30/92/60/03/30926003_61541536_1000.jpg"
                     }
                 }
@@ -454,30 +414,26 @@ namespace MVC_Vue.Databases
                 Price = 1650000,
                 Quantity = 1,
                 Discount = 10,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 36,
-                        Name = "MOTHER",
                         Url = "https://cdn-images.farfetch-contents.com/31/94/52/36/31945236_61584145_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 37,
-                        Name = "MOTHER",
                         Url = "https://cdn-images.farfetch-contents.com/31/94/52/36/31945236_61583729_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 38,
-                        Name = "MOTHER",
                         Url = "https://cdn-images.farfetch-contents.com/31/94/52/36/31945236_61584005_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 39,
-                        Name = "MOTHER",
                         Url = "https://cdn-images.farfetch-contents.com/31/94/52/36/31945236_61584291_1000.jpg"
                     }
                 }
@@ -493,30 +449,26 @@ namespace MVC_Vue.Databases
                 Price = 1980000,
                 Quantity = 1,
                 Discount = 15,
-                Images = new List<Image>
+                ProductImages = new List<ProductImage>
                 {
-                    new Image
+                    new ProductImage
                     {
                         Id = 40,
-                        Name = "AGOLDE",
                         Url = "https://cdn-images.farfetch-contents.com/22/67/71/27/22677127_52785222_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 41,
-                        Name = "AGOLDE",
                         Url = "https://cdn-images.farfetch-contents.com/22/67/71/27/22677127_52785197_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 40,
-                        Name = "AGOLDE",
                         Url = "https://cdn-images.farfetch-contents.com/22/67/71/27/22677127_52785195_1000.jpg"
                     },
-                    new Image
+                    new ProductImage
                     {
                         Id = 41,
-                        Name = "AGOLDE",
                         Url = "https://cdn-images.farfetch-contents.com/22/67/71/27/22677127_52785198_1000.jpg"
                     }
                 }
@@ -562,42 +514,6 @@ namespace MVC_Vue.Databases
 
             return _users;
         }
-    }
-
-    public class Menu
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; } = string.Empty;
-    }
-
-    public class Category
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsHome { get; set; } = false;
-        public List<Product> Products { get; set; } =[];
-    }
-
-    public class Product
-    {
-        public int Id { get; set; }
-        public int CategoryId { get; set; }
-        public string Sku { get; set; } = "";
-        public string Name { get; set; } = "";
-        public string Slug { get; set; } = "";
-        public decimal Price { get; set; }
-        public string Description { get; set; } = "";
-        public List<Image> Images { get; set; } = [];
-        public float Discount { get; set; } = 0;
-        public int Quantity { get; set; } = 0;
-    }
-
-    public class Image
-    {   
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
     }
 
     public class User

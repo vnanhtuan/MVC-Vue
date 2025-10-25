@@ -1,23 +1,26 @@
+using Core.Application.DTOs;
+using Core.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using MVC_Vue.Databases;
 
 namespace MVC_Vue.Controllers
 {
   public class ProductController : Controller
   {
-    private readonly ILogger<ProductController> _logger;
+        private readonly IProductService _productService;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger, IProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
-    public IActionResult Index(string slug)
+    public async Task<IActionResult> Index(string slug)
     {
       if (string.IsNullOrEmpty(slug))
       {
           return BadRequest();
       }
-      Product product = ProductDatabase.GetProductBySlug(slug) ?? new Product();
+      var product = await _productService.GetBySlugAsync(slug) ?? new ProductDto();
       return View("Product", product);
     }
   }

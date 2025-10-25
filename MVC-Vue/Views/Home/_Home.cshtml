@@ -1,9 +1,10 @@
-﻿@using MVC_Vue.Controllers
+﻿@using Core.Application.DTOs
+@using MVC_Vue.Controllers
 @using MVC_Vue.Databases
-@model IEnumerable<Category>
+@model HomeDto
 
 <div class="modern-container">
-    @foreach (var category in Model)
+    @foreach (var category in Model.Categories)
     {
         <div class="section-title">@category.Name</div>
        <v-row>
