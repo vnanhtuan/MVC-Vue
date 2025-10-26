@@ -57,6 +57,9 @@ export const ProductListPage = {
                 this.loading = false;
             }
         },
+        createProduct() {
+            this.$router.push({ name: 'ProductDetail', params: { id: 'new' } });
+        },
         editProduct(item) {
             // Dùng router để điều hướng sang trang chi tiết
             // và truyền ID vào params

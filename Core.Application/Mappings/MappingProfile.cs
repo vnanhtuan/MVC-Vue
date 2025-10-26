@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs;
+using Core.Application.DTOs.Product;
 using Core.Domain.Entities;
 
 namespace Core.Application.Mappings
@@ -17,6 +18,14 @@ namespace Core.Application.Mappings
                 .ForMember(dest => dest.MainImageUrl,
                             opt => opt.MapFrom(src =>
                             src.ProductImages.FirstOrDefault(i => i.IsMain).Url ?? ""));
+
+            CreateMap<ProductCreateDto, Product>()
+            .ForMember(dest => dest.ProductImages,
+                       opt => opt.MapFrom(src => src.ImageUrls.Select(url => new ProductImage { Url = url, IsMain = false })));
+
+            CreateMap<ProductUpdateDto, Product>()
+            .ForMember(dest => dest.ProductImages,
+                       opt => opt.MapFrom(src => src.ImageUrls.Select(url => new ProductImage { Url = url, IsMain = false })));
 
             // Map Category
             CreateMap<Category, CategoryDto>()

@@ -1,4 +1,5 @@
-﻿using Core.Application.Interfaces;
+﻿using Core.Application.DTOs.Product;
+using Core.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,34 @@ namespace MVC_Vue.Areas.Admin.Controllers
             if (product == null)
                 return NotFound();
             return Ok(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductCreateDto dto)
+        {
+            try
+            {
+                var newProduct = await _productService.CreateProductAsync(dto);
+                return CreatedAtAction(nameof(GetProductById), new { id = newProduct.Id }, newProduct);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductUpdateDto dto)
+        {
+            try
+            {
+                await _productService.UpdateProductAsync(id, dto);
+                return NoContent(); // Trả về 204 No Content (Thành công)
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

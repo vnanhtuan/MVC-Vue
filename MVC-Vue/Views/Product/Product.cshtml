@@ -1,4 +1,4 @@
-@using Core.Application.DTOs
+@using Core.Application.DTOs.Product
 
 @model ProductDto
 @{
@@ -149,8 +149,6 @@
                     selectedSize: null,
                     quantity: 1,
                     product: @Html.Raw(Json.Serialize(Model)),
-
-                    // TẠO MỘT MẢNG CÁC MÀU
                     availableColors: ['Xanh Jean', 'Xanh đen', 'Xám', 'Trắng'],
                     availableSizes: ['S', 'M', 'L', 'XL']
                   }

@@ -1,10 +1,10 @@
-using Core.Application.DTOs;
+using Core.Application.DTOs.Product;
 using Core.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MVC_Vue.Controllers
 {
-  public class ProductController : Controller
+    public class ProductController : Controller
   {
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;

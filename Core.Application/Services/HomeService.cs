@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Application.DTOs;
+using Core.Application.DTOs.Product;
 using Core.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace Core.Application.Services

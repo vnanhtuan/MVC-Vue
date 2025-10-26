@@ -3,21 +3,47 @@ import api from '../api.js';
 const response = await fetch('/components/admin/product-detail.html');
 const templateHtml = await response.text();
 
+// Hàm tạo một object product rỗng
+function createNewProduct() {
+    return {
+        id: 0,
+        name: '',
+        sku: '',
+        description: '',
+        price: 0,
+        discount: 0,
+        quantity: 0,
+        categoryId: 1, // Mặc định category 1
+        ImageUrls: [] // Mảng ảnh rỗng
+    };
+}
+
 export const ProductDetailPage = {
     template: templateHtml,
     data() {
         return {
             product: null,
             loading: true,
+            isEditMode: false,
             isUploading: false,
             imageInputFiles: []
         };
     },
-    // mounted(): Chạy khi component được tải
+    computed: {
+        title() {
+            return this.isEditMode ? 'Cập nhật Sản phẩm' : 'Tạo Sản phẩm Mới';
+        }
+    },
     mounted() {
         // Lấy ID sản phẩm từ URL (ví dụ: /manage/products/1)
         const productId = this.$route.params.id;
-        if (productId) {
+
+        if (productId === 'new') {
+            this.isEditMode = false;
+            this.product = createNewProduct(); // Create object empty
+            this.loading = false;
+        } else {
+            this.isEditMode = true;
             this.fetchProduct(productId);
         }
     },
@@ -58,7 +84,7 @@ export const ProductDetailPage = {
                     // Thêm URL tạm trả về vào mảng và hiển thị thumbnail
                     //this.product.images.push();
 
-                    this.product.images.push({ url: response.data.url });
+                    this.product.ImageUrls.push({ url: response.data.url });
 
                 } catch (err) {
                     console.error('Lỗi upload ảnh:', err);
@@ -77,15 +103,31 @@ export const ProductDetailPage = {
         },
         // Hàm lưu thay đổi
         async saveProduct() {
-            console.log('Saving product:', this.product);
-            if (!this.product) return;
+            const productData = {
+                name: this.product.name,
+                description: this.product.description,
+                price: this.product.price,
+                discount: this.product.discount,
+                quantity: this.product.quantity,
+                categoryId: this.product.categoryId,
+                // Lấy danh sách URL
+                imageUrls: this.product.productImages.map(img => img.url)
+            };
+
             try {
-                // Gọi API PUT để cập nhật
-                await api.put(`/api/admin/products/${this.product.id}`, this.product);
+                if (this.isEditMode) {
+                    // === CHẠY API UPDATE ===
+                    await api.put(`/api/admin/products/${this.product.id}`, productData);
+                } else {
+                    // === CHẠY API CREATE ===
+                    await api.post('/api/admin/products', productData);
+                }
+
                 // Sau khi lưu thành công, quay về trang danh sách
                 this.goBack();
             } catch (err) {
                 console.error('Lỗi khi lưu sản phẩm:', err);
+                // (Nên hiển thị thông báo lỗi cho người dùng)
             }
         },
         // Hàm quay về trang danh sách

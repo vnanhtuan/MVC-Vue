@@ -1,4 +1,6 @@
-﻿namespace Core.Application.DTOs
+﻿using Core.Application.DTOs.Product;
+
+namespace Core.Application.DTOs
 {
     public class CategoryDto
     {

@@ -1,6 +1,4 @@
-﻿using Core.Application.DTOs.Product;
-
-namespace Core.Application.DTOs
+﻿namespace Core.Application.DTOs.Product
 {
     public class ProductListDto: ProductBase
     {
