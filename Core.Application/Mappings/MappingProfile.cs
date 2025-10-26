@@ -13,6 +13,11 @@ namespace Core.Application.Mappings
                 .ForMember(dest => dest.Images,
                            opt => opt.MapFrom(src => src.ProductImages));
 
+            CreateMap<Product, ProductListDto>()
+                .ForMember(dest => dest.MainImageUrl,
+                            opt => opt.MapFrom(src =>
+                            src.ProductImages.FirstOrDefault(i => i.IsMain).Url ?? ""));
+
             // Map Category
             CreateMap<Category, CategoryDto>()
                 // Tạm thời để Products là null, chúng ta sẽ xử lý sau

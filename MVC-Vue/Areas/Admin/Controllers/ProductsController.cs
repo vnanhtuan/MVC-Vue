@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Core.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MVC_Vue.Databases;
-using MVC_Vue.Models.Shared;
 
 namespace MVC_Vue.Areas.Admin.Controllers
 {
@@ -11,39 +10,28 @@ namespace MVC_Vue.Areas.Admin.Controllers
     [Authorize]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        private readonly IProductService _productService;
+        private readonly ILogger<ProductsController> _logger;
+        public ProductsController(ILogger<ProductsController> logger, IProductService productService)
         {
-            var _products = ProductDatabase.GetProducts();
+            _logger = logger;
+            _productService = productService;
+        }
 
-            var totalItems = _products.Count();
-            var items = _products
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            var result = new PaginatedResult<Product>
-            {
-                Items = items,
-                TotalItems = totalItems,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            };
+        [HttpGet]
+        public async Task<IActionResult> GetProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _productService.GetAllAsync(pageNumber, pageSize);
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
-            var _products = ProductDatabase.GetProducts();
-            var product = _products.FirstOrDefault(p => p.Id == id);
-
+            var product = await _productService.GetByIdAsync(id);
             if (product == null)
-            {
-                return NotFound(); // Trả về 404 nếu không tìm thấy
-            }
-
+                return NotFound();
             return Ok(product);
         }
     }
