@@ -84,7 +84,7 @@ export const ProductDetailPage = {
                     // Thêm URL tạm trả về vào mảng và hiển thị thumbnail
                     //this.product.images.push();
 
-                    this.product.ImageUrls.push({ url: response.data.url });
+                    this.product.images.push({ url: response.data.url });
 
                 } catch (err) {
                     console.error('Lỗi upload ảnh:', err);
@@ -111,7 +111,7 @@ export const ProductDetailPage = {
                 quantity: this.product.quantity,
                 categoryId: this.product.categoryId,
                 // Lấy danh sách URL
-                imageUrls: this.product.productImages.map(img => img.url)
+                imageUrls: this.product.images.map(img => img.url)
             };
 
             try {
