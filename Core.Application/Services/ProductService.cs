@@ -20,7 +20,6 @@ namespace Core.Application.Services
             _mapper = mapper;
             _photoService = photoService;
         }
-
         public async Task<PaginatedResult<ProductListDto>> GetAllAsync(int pageNumber = 1, int pageSize = 10)
         {
             var totalItems = await _context.Products.CountAsync();
@@ -41,7 +40,6 @@ namespace Core.Application.Services
 
             return result;
         }
-
         public async Task<ProductDto?> GetByIdAsync(int id)
         {
             var product = await _context.Products
@@ -50,7 +48,6 @@ namespace Core.Application.Services
             var productDto = _mapper.Map<ProductDto>(product);
             return productDto;
         }
-
         public async Task<ProductDto?> GetBySlugAsync(string slug)
         {
             var product = await _context.Products
@@ -84,7 +81,6 @@ namespace Core.Application.Services
             }
             return _mapper.Map<ProductDto>(product);
         }
-
         public async Task UpdateProductAsync(int id, ProductUpdateDto dto)
         {
             // 1. Tìm Product trong DB (phải Include cả Images)
