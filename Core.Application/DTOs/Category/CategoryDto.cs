@@ -1,6 +1,6 @@
 ﻿using Core.Application.DTOs.Product;
 
-namespace Core.Application.DTOs
+namespace Core.Application.DTOs.Category
 {
     public class CategoryDto
     {

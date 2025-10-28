@@ -3,5 +3,6 @@
     public class ProductListDto: ProductBase
     {
         public string MainImageUrl { get; set; } = "";
+        public string CategoryName { get; set; } = "";
     }
 }

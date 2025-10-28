@@ -13,7 +13,7 @@ function createNewProduct() {
         price: 0,
         discount: 0,
         quantity: 0,
-        categoryId: 1, // Mặc định category 1
+        categoryId: null, // Mặc định category 1
         images: [] // Mảng ảnh rỗng,
     };
 }
@@ -38,7 +38,6 @@ export const ProductDetailPage = {
     mounted() {
         // Lấy ID sản phẩm từ URL (ví dụ: /manage/products/1)
         const productId = this.$route.params.id;
-
         if (productId === 'new') {
             this.isEditMode = false;
             this.product = createNewProduct(); // Create object empty
@@ -46,8 +45,8 @@ export const ProductDetailPage = {
         } else {
             this.isEditMode = true;
             this.fetchProduct(productId);
-            this.fetchCategories();
         }
+        this.fetchCategories();
     },
     methods: {
         // Hàm lấy dữ liệu từ API
@@ -80,7 +79,7 @@ export const ProductDetailPage = {
         async handleImageUpload(files) {
             if (!files || files.length === 0) return;
             
-            //this.isUploading = true;
+            this.isUploading = true;
             
             for (const file of files) {
                 // Tạo FormData để gửi file
@@ -98,7 +97,7 @@ export const ProductDetailPage = {
                     // Thêm URL tạm trả về vào mảng và hiển thị thumbnail
                     //this.product.images.push();
 
-                    this.product.images.push({ url: response.data.url });
+                    this.product.images.push({ url: response.data.url, publicId: response.data.publicId });
 
                 } catch (err) {
                     console.error('Lỗi upload ảnh:', err);
@@ -126,7 +125,10 @@ export const ProductDetailPage = {
                 quantity: this.product.quantity,
                 categoryId: this.product.categoryId,
                 // Lấy danh sách URL
-                imageUrls: this.product.images.map(img => img.url)
+                images: this.product.images.map(img => ({
+                    url: img.url,
+                    publicId: img.publicId
+                }))
             };
 
             try {

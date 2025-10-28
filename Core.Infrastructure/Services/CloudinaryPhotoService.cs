@@ -2,11 +2,6 @@
 using CloudinaryDotNet.Actions;
 using Core.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Infrastructure.Services
 {
@@ -48,6 +43,26 @@ namespace Core.Infrastructure.Services
                 PublicId = uploadResult.PublicId,
                 Url = uploadResult.SecureUrl.ToString() // Dùng SecureUrl (https)
             };
+        }
+
+        public async Task DeletePhotoAsync(string publicId)
+        {
+            if (string.IsNullOrEmpty(publicId))
+                return; // Không có gì để xóa
+
+            var deletionParams = new DeletionParams(publicId)
+            {
+                ResourceType = ResourceType.Image
+            };
+
+            var result = await _cloudinary.DestroyAsync(deletionParams);
+
+            if (result.Result != "ok" && result.Error != null)
+            {
+                // Nếu muốn xử lý lỗi nghiêm ngặt, bạn có thể ném ra exception
+                throw new System.Exception($"Lỗi khi xóa ảnh khỏi Cloudinary: {result.Error.Message}");
+            }
+            // Nếu không, chúng ta có thể bỏ qua (lỗi sẽ được ghi log trên Cloudinary)
         }
     }
 }

@@ -28,6 +28,7 @@ export const ProductListPage = {
                 { title: 'Ảnh', key: 'imageUrl', sortable: false },
                 { title: 'Tên Sản Phẩm', key: 'name' },
                 { title: 'Mô tả', key: 'description', sortable: false, width: '250px' },
+                { title: 'Danh mục', key: 'categoryName' },
                 { title: 'Số Lượng', key: 'quantity' },
                 { title: 'Kích Cỡ', key: 'sizes', sortable: false },
                 { title: 'Giảm giá', key: 'discount' },

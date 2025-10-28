@@ -20,7 +20,6 @@
       <v-navigation-drawer
           v-model="drawer"
           :rail="rail"
-          
           :temporary="isMobile"   :permanent="!isMobile"  >
           <div v-if="!isMobile" class="d-flex justify-end pa-2">
               <v-btn
@@ -31,17 +30,23 @@
           </div>
 
           <v-divider v-if="!isMobile"></v-divider>
-
           <v-list density="compact" nav>
               <router-link to="/manage" custom v-slot="{ navigate }">
                 <v-list-item 
                     @click="navigate" 
                     prepend-icon="mdi-view-dashboard" 
-                    title="Dashboard" 
+                    title="Báo cáo" 
                     value="dashboard"
                 ></v-list-item>
               </router-link>
-              
+              <router-link to="/manage/category" custom v-slot="{ navigate }">
+                  <v-list-item 
+                    @click="navigate"
+                    prepend-icon="mdi-folder-outline"
+                    title="Danh mục"
+                    value="category">
+                  </v-list-item>
+              </router-link>
               <router-link to="/manage/products" custom v-slot="{ navigate }">
                 <v-list-item 
                     @click="navigate" 

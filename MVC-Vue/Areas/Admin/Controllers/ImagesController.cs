@@ -31,7 +31,7 @@ namespace MVC_Vue.Areas.Admin.Controllers
             // Gọi service (Application)
             var result = await _photoService.UploadPhotoAsync(stream, file.FileName, true);
 
-            return Ok(new { url = result.Url });
+            return Ok(new { url = result.Url, publicId = result.PublicId });
         }
     }
 }

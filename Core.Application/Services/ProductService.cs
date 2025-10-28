@@ -13,11 +13,12 @@ namespace Core.Application.Services
     {
         private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
-
-        public ProductService(IAppDbContext context, IMapper mapper)
+        private readonly IPhotoService _photoService;
+        public ProductService(IAppDbContext context, IMapper mapper, IPhotoService photoService)
         {
             _context = context;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         public async Task<PaginatedResult<ProductListDto>> GetAllAsync(int pageNumber = 1, int pageSize = 10)
@@ -96,17 +97,66 @@ namespace Core.Application.Services
                 throw new Exception("Product not found");
             }
 
-            _context.ProductImages.RemoveRange(product.ProductImages);
-
+            // Ignored auto map ProductImages
             _mapper.Map(dto, product);
+
             product.Slug = product.Name.GenerateSlug(product.Id.ToString());
 
-            if (product.ProductImages.Any())
+            // LOGIC compare image old and new
+            var newImageDtos = dto.Images ?? [];
+            var existingImages = product.ProductImages.ToList(); // Old image in DB
+
+            var imagesToDelete = existingImages
+            .Where(dbImg => !string.IsNullOrEmpty(dbImg.PublicId) &&
+                            !newImageDtos.Any(dtoImg => dtoImg.PublicId == dbImg.PublicId))
+            .ToList();
+
+            var imagesToAdd = newImageDtos
+            .Where(dtoImg => !existingImages.Any(dbImg => dbImg.PublicId == dtoImg.PublicId))
+            .Select(dtoImg => _mapper.Map<ProductImage>(dtoImg)) // Map DTO -> Entity
+            .ToList();
+
+            var remainingImages = existingImages.Except(imagesToDelete).ToList();
+
+            // Sure all images before store is IsMain = FALSE 
+            foreach (var img in remainingImages) { img.IsMain = false; }
+            foreach (var img in imagesToAdd) 
+            { 
+                img.IsMain = false; 
+                img.ProductId = id; 
+            }
+
+            var firstImageDto = newImageDtos.FirstOrDefault();
+            if (firstImageDto != null)
             {
-                product.ProductImages.First().IsMain = true;
+                // 5d. Tìm ảnh tương ứng trong DB (có thể là ảnh cũ hoặc ảnh mới)
+                var mainImage = remainingImages.FirstOrDefault(i => i.PublicId == firstImageDto.PublicId) // Tìm trong ảnh cũ
+                                ?? imagesToAdd.FirstOrDefault(i => i.PublicId == firstImageDto.PublicId); // Tìm trong ảnh mới
+
+                if (mainImage != null)
+                {
+                    mainImage.IsMain = true; // Đặt làm ảnh chính
+                }
             }
             
+            _context.ProductImages.RemoveRange(imagesToDelete);
+            await _context.ProductImages.AddRangeAsync(imagesToAdd);
+
             await _context.SaveChangesAsync();
+
+            foreach (var image in imagesToDelete)
+            {
+                try
+                {
+                    await _photoService.DeletePhotoAsync(image.PublicId);
+                }
+                catch (Exception ex)
+                {
+                    // Ghi log lỗi, nhưng không dừng chương trình
+                    // (Ví dụ: file đã bị xóa thủ công trên Cloudinary)
+                    Console.WriteLine($"Lỗi khi xóa file {image.PublicId}: {ex.Message}");
+                }
+            }
         }
     }
 }

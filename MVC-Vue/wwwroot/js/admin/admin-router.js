@@ -4,6 +4,7 @@ import { DashboardPage } from './pages/dashboard-layout.js';
 import { DashboardContentPage } from './pages/dashboard-content.js';
 import { ProductListPage } from './pages/product-list.js';
 import { ProductDetailPage } from './pages/product-detail.js';
+import { CategoryListPage } from './pages/category-list.js';
 
 // 2. ĐỊNH NGHĨA ROUTES (Sạch sẽ)
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
                 path: '', // /manage
                 name: 'Dashboard',
                 component: DashboardContentPage 
+            },
+            {
+                path: 'category', // /manage/category
+                name: 'Category',
+                component: CategoryListPage
             },
             { 
                 path: 'products', // /manage/products

@@ -1,4 +1,5 @@
-﻿using Core.Application.DTOs.Product;
+﻿using Core.Application.DTOs.Category;
+using Core.Application.DTOs.Product;
 
 namespace Core.Application.DTOs
 {

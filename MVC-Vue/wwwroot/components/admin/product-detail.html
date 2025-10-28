@@ -102,6 +102,8 @@
                                     v-model="imageInputFiles"
                                     @update:model-value="handleImageUpload"
                                     class="mt-4"
+                                    :loading="isUploading"
+                                    :disabled="isUploading"
                                 ></v-file-input>
                             </v-card-text>
                         </v-card>

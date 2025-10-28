@@ -11,6 +11,7 @@
         public bool IsMain { get; set; }
 
         public short? DisplayOrder { get; set; }
+        public string? PublicId { get; set; }
 
         public virtual Product Product { get; set; } = null!;
     }
