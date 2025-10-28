@@ -1,3 +1,4 @@
+using Core.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +10,11 @@ namespace MVC_Vue.Areas.Admin.Controllers
     [Authorize] // Yêu cầu phải đăng nhập
     public class ImagesController : ControllerBase
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IPhotoService _photoService;
 
-        // Tiêm IWebHostEnvironment để lấy đường dẫn wwwroot
-        public ImagesController(IWebHostEnvironment env)
+        public ImagesController(IPhotoService photoService)
         {
-            _env = env;
+            _photoService = photoService;
         }
 
         [HttpPost("upload")] // URL: /api/admin/images/upload
@@ -22,33 +22,16 @@ namespace MVC_Vue.Areas.Admin.Controllers
         {
             if (file == null || file.Length == 0)
             {
-                return BadRequest("Không có file nào được tải lên.");
+                return BadRequest("No file uploaded.");
             }
 
-            // 1. TẠO THƯ MỤC "TEMP" NẾU CHƯA CÓ
-            // Đường dẫn vật lý: .../wwwroot/uploads/temp
-            var tempDir = Path.Combine(_env.WebRootPath, "uploads", "temp");
-            if (!Directory.Exists(tempDir))
-            {
-                Directory.CreateDirectory(tempDir);
-            }
+            // Mở file như một Stream
+            await using var stream = file.OpenReadStream();
 
-            // 2. TẠO TÊN FILE DUY NHẤT
-            var fileExtension = Path.GetExtension(file.FileName);
-            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
-            var filePath = Path.Combine(tempDir, uniqueFileName);
+            // Gọi service (Application)
+            var result = await _photoService.UploadPhotoAsync(stream, file.FileName, true);
 
-            // 3. LƯU FILE VÀO THƯ MỤC "TEMP"
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            // 4. TRẢ VỀ URL CÓ THỂ TRUY CẬP CÔNG KHAI
-            // URL: /uploads/temp/ten_file_duy_nhat.jpg
-            var publicUrl = $"/uploads/temp/{uniqueFileName}";
-            
-            return Ok(new { url = publicUrl });
+            return Ok(new { url = result.Url });
         }
     }
 }

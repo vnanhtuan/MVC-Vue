@@ -36,31 +36,40 @@
                     <v-col cols="12" md="4">
                         <v-card variant="tonal">
                             <v-card-text>
-                                <v-text-field
-                                    v-model.number="product.price"
-                                    label="Giá"
-                                    type="number"
-                                    variant="outlined"
-                                    density="compact"
-                                    prefix="đ"
-                                ></v-text-field>
+                                <v-select v-model="product.categoryId"
+                                          :items="categories"
+                                          item-title="name"
+                                          item-value="id"
+                                          label="Danh mục"
+                                          variant="outlined"
+                                          density="compact"
+                                          class="mb-4"></v-select>
 
-                                <v-text-field
-                                    v-model.number="product.discount"
-                                    label="Giảm giá"
-                                    type="number"
-                                    variant="outlined"
-                                    density="compact"
-                                    prefix="%"
-                                ></v-text-field>
+                                <v-text-field v-model="product.sku"
+                                              label="SKU (Mã sản phẩm)"
+                                              variant="outlined"
+                                              density="compact"
+                                              class="mb-4"></v-text-field>
 
-                                <v-text-field
-                                    v-model.number="product.quantity"
-                                    label="Số lượng tồn kho"
-                                    type="number"
-                                    variant="outlined"
-                                    density="compact"
-                                ></v-text-field>
+                                <v-text-field v-model.number="product.price"
+                                              label="Giá"
+                                              type="number"
+                                              variant="outlined"
+                                              density="compact"
+                                              prefix="đ"></v-text-field>
+
+                                <v-text-field v-model.number="product.discount"
+                                              label="Giảm giá"
+                                              type="number"
+                                              variant="outlined"
+                                              density="compact"
+                                              prefix="%"></v-text-field>
+
+                                <v-text-field v-model.number="product.quantity"
+                                              label="Số lượng tồn kho"
+                                              type="number"
+                                              variant="outlined"
+                                              density="compact"></v-text-field>
                             </v-card-text>
                         </v-card>
                     </v-col>

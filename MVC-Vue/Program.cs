@@ -29,6 +29,7 @@ builder.Services.AddScoped<IShopService,ShopService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPhotoService, CloudinaryPhotoService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 

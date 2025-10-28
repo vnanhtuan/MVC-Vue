@@ -14,7 +14,7 @@ function createNewProduct() {
         discount: 0,
         quantity: 0,
         categoryId: 1, // Mặc định category 1
-        ImageUrls: [] // Mảng ảnh rỗng
+        images: [] // Mảng ảnh rỗng,
     };
 }
 
@@ -26,7 +26,8 @@ export const ProductDetailPage = {
             loading: true,
             isEditMode: false,
             isUploading: false,
-            imageInputFiles: []
+            imageInputFiles: [],
+            categories: []
         };
     },
     computed: {
@@ -45,6 +46,7 @@ export const ProductDetailPage = {
         } else {
             this.isEditMode = true;
             this.fetchProduct(productId);
+            this.fetchCategories();
         }
     },
     methods: {
@@ -57,6 +59,18 @@ export const ProductDetailPage = {
             } catch (err) {
                 console.error('Lỗi khi tải chi tiết sản phẩm:', err);
                 // Có thể thêm logic điều hướng về trang 404
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async fetchCategories() {
+            this.loading = true;
+            try {
+                const response = await api.get('/api/admin/categories');
+                this.categories = response.data;
+            } catch (err) {
+                console.error('Lỗi khi tải danh mục:', err);
             } finally {
                 this.loading = false;
             }
@@ -105,6 +119,7 @@ export const ProductDetailPage = {
         async saveProduct() {
             const productData = {
                 name: this.product.name,
+                sku: this.product.sku,
                 description: this.product.description,
                 price: this.product.price,
                 discount: this.product.discount,

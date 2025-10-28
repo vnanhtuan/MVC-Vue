@@ -11,7 +11,7 @@ namespace MVC_Vue.Helpers
          * 'this string text' biến hàm này thành một phương thức mở rộng.
          * Bạn có thể gọi: "Tên sản phẩm".GenerateSlug()
          */
-        public static string GenerateSlug(this string text)
+        public static string GenerateSlug(this string text, string extend = "")
         {
             if (string.IsNullOrEmpty(text)) 
             {
@@ -43,7 +43,10 @@ namespace MVC_Vue.Helpers
             
             // 4. Xóa các gạch nối thừa
             text = Regex.Replace(text, @"-+", "-");
-            
+
+            if (!string.IsNullOrEmpty(extend))
+                text = $"{text}.{extend}";
+
             return text.Trim('-');
         }
     }
